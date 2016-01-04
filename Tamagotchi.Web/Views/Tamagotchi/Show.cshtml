@@ -1,0 +1,221 @@
+﻿@model Tamagotchi.Web.TamagotchiService.TamagotchiContract
+
+@{
+    ViewBag.Title = Html.ValueFor(model => model.Name).ToString();
+
+    if (Model.IsInCoolDown)
+    {
+        ViewBag.Date = Model.CoolDownUntilUtc;
+    }
+
+    if (Model.IsInCoolDown || Model.HasDied)
+    {
+        ViewBag.ButtonState = "disabled";
+    }
+}
+
+@{
+    Html.RenderPartial("PageHeader");
+}
+
+<section class="overview">
+    <div class="container">
+
+        <h2>@Model.Name</h2>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Status</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <dl>
+
+                            @if (Model.IsInCoolDown)
+                            {
+                                <dt>
+                                    Cooldown left
+                                </dt>
+                                <dd>
+                                    <span id="clock" data-countdownto="@(Model.CoolDownUntilUtc.ToLocalTime().ToString("MM/dd/yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US")))"></span>
+                                </dd>
+                            }
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Status) <span id="clock"></span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="lead" style="float: right">
+                            <i class="fa fa-frown-o"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (!Model.HasDied)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Actions</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Some text explaining what these are.</p>
+                        </div>
+
+                        <div class="list-group">
+
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Eat", "Tamagotchi", new { id = Model.ID })" role="button">
+                                <span class="badge"><i class="fa fa-clock-o"></i> 30s</span>
+                                <span class="badge">Hungriness <i class="fa fa-arrow-right"></i> 0 </span>
+                                Eat
+                            </a>
+
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Sleep", "Tamagotchi", new { id = Model.ID })" role="button">
+                                <span class="badge"><i class="fa fa-clock-o"></i> 2h</span>
+                                <span class="badge">Sleepiness <i class="fa fa-arrow-right"></i> 0</span>
+                                Sleep
+                            </a>
+
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Play", "Tamagotchi", new { id = Model.ID })" role="button">
+                                <span class="badge"><i class="fa fa-clock-o"></i> 30s</span>
+                                <span class="badge">Boredom <i class="fa fa-arrow-down"></i> 10</span>
+                                Play
+                            </a>
+
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Hug", "Tamagotchi", new { id = Model.ID })" role="button">
+                                <span class="badge"><i class="fa fa-clock-o"></i> 1m</span>
+                                <span class="badge">Health <i class="fa fa-arrow-down"></i> 10</span>
+                                Hug
+                            </a>
+
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Workout", "Tamagotchi", new { id = Model.ID })">
+                                <span class="badge"><i class="fa fa-clock-o"></i> 1m</span>
+                                <span class="badge">Health <i class="fa fa-arrow-down"></i> 5</span>
+                                Workout
+                            </a>
+
+                            @*@Html.ActionLink("Eat", "Eat", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
+                                @Html.ActionLink("Sleep", "Sleep", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
+                                @Html.ActionLink("Play", "Play", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
+                                @Html.ActionLink("Hug", "Hug", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
+                                @Html.ActionLink("Workout", "Workout", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Details <small>Lower is better</small></h3>
+                        </div>
+                        <div class="panel-body">
+                            <dl style="margin-bottom: 0px">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Boredom)
+                                </dt>
+
+                                <dd>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@($"{Model.Boredom}")" aria-valuemin="0" aria-valuemax="100"
+                                             style="@($"width: {Model.Boredom}%; min-width: 5em;")">
+                                            @($"{Model.Boredom} points")
+                                        </div>
+                                    </div>
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Health)
+                                </dt>
+
+                                <dd>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@($"{Model.Health}")" aria-valuemin="0" aria-valuemax="100"
+                                             style="@($"width: {Model.Health}%; min-width: 5em;")">
+                                            @($"{Model.Health} points")
+                                        </div>
+                                    </div>
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Hungriness)
+                                </dt>
+
+                                <dd>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@($"{Model.Hungriness}")" aria-valuemin="0" aria-valuemax="100"
+                                             style="@($"width: {Model.Hungriness}%; min-width: 5em;")">
+                                            @($"{Model.Hungriness} points")
+                                        </div>
+                                    </div>
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Sleepiness)
+                                </dt>
+
+                                <dd>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@($"{Model.Sleepiness}")" aria-valuemin="0" aria-valuemax="100"
+                                             style="@($"width: {Model.Sleepiness}%; min-width: 5em;")">
+                                            @($"{Model.Sleepiness} points")
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Rules</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Some text explaining what these are.</p>
+                </div>
+
+                <ul class="list-group">
+                    @foreach (var rule in Model.Rules)
+                {
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <dl style="margin-bottom: 0px">
+                                        <dt>@(rule.Name)</dt>
+                                        <dd><small>@(rule.Discription)</small></dd>
+                                    </dl>
+                                </div>
+                                <div class="col-xs-4">
+                                    @if (rule.IsActive)
+                                    {
+                                        @Html.ActionLink("Deactivate", "SetRule", "Tamagotchi", new { id = Model.ID, ruleName = rule.Name, setActive = false }, new { @class = "btn btn-default", role = "button", style = "float: right" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Activate", "SetRule", "Tamagotchi", new { id = Model.ID, ruleName = rule.Name, setActive = true }, new { @class = "btn btn-default", role = "button", style = "float: right" })
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        }
+
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+</section>

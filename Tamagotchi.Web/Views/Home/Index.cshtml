@@ -1,0 +1,82 @@
+﻿@model Tamagotchi.Web.Models.HomeModel
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<!-- Header -->
+<header id="top" class="header">
+    <div class="text-vertical-center">
+        <h1>Tamagotchi</h1>
+        <h3>Always wanted a virtual pet? Well, now's your chance.</h3>
+        <br>
+        <a href="#start" class="btn btn-light btn-lg">Let's start!</a>
+    </div>
+</header>
+
+<section id="start">
+    <div class="container center-block">
+        <div class="row vertical-align">
+            <div class="col-md-6">
+                <div class="row-box panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p class="lead">Already created a Tamagotchi?</p>
+                        <p>Great, type in its name and click the view-button.</p>
+
+                        @using (Html.BeginForm("DetailsByName", "Tamagotchi"))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="form-group">
+                                <label class="sr-only" for="findName">Tamagotchi name</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-lg", placeholder = "What's your Tamagotchis name?", id = "findName" })
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-default btn-lg">View</button>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row-box">
+                    <div class="row-box panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Create</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="lead">Don't have a Tamagotchi yet?</p>
+                            <p>No problem, type in a name and click the create-button.</p>
+
+                            @using (Html.BeginForm("Create", "Tamagotchi"))
+                            {
+                                @Html.AntiForgeryToken()
+
+
+                                <div class="form-group">
+                                    <label class="sr-only" for="createName">Tamagotchi name</label>
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-lg", placeholder = "Your new Tamagotchi", id = "createName" })
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-default btn-lg">Create</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </div>
+</section>
+

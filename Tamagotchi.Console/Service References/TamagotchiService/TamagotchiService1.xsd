@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="TamagotchiContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Boredom" type="xs:int" />
+      <xs:element minOccurs="0" name="CoolDownLeft" type="ser:duration" />
+      <xs:element minOccurs="0" name="CoolDownUntilUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HasDied" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Health" type="xs:int" />
+      <xs:element minOccurs="0" name="Hungriness" type="xs:int" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="IsInCoolDown" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rules" nillable="true" type="tns:ArrayOfRuleContract" />
+      <xs:element minOccurs="0" name="Sleepiness" type="xs:int" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TamagotchiContract" nillable="true" type="tns:TamagotchiContract" />
+  <xs:complexType name="ArrayOfRuleContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RuleContract" nillable="true" type="tns:RuleContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRuleContract" nillable="true" type="tns:ArrayOfRuleContract" />
+  <xs:complexType name="RuleContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Discription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastPassedOnUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RuleContract" nillable="true" type="tns:RuleContract" />
+  <xs:complexType name="ArrayOfTamagotchiContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TamagotchiContract" nillable="true" type="tns:TamagotchiContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTamagotchiContract" nillable="true" type="tns:ArrayOfTamagotchiContract" />
+</xs:schema>

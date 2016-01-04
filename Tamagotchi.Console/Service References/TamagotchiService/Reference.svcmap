@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e30fa19d-520b-4334-98c3-8fa83ccc49d8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="TamagotchiService.xsd" MetadataType="Schema" ID="b0f5f554-c351-4a8e-aa57-b7b73420088d" SourceId="1" SourceUrl="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd1" />
+    <MetadataFile FileName="TamagotchiService1.xsd" MetadataType="Schema" ID="4c4b3176-86a8-4613-a388-587b5722bd98" SourceId="1" SourceUrl="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd2" />
+    <MetadataFile FileName="TamagotchiService2.xsd" MetadataType="Schema" ID="16896971-7495-4169-b43f-2fc56e156267" SourceId="1" SourceUrl="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd0" />
+    <MetadataFile FileName="TamagotchiService.wsdl" MetadataType="Wsdl" ID="fcf601ce-3895-4ee0-a687-4e2c4b62edf2" SourceId="1" SourceUrl="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?wsdl" />
+    <MetadataFile FileName="TamagotchiService.disco" MetadataType="Disco" ID="7579e563-1784-4536-af4e-2ff1e367db3d" SourceId="1" SourceUrl="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

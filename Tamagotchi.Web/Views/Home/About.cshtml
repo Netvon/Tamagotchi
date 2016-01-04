@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+@{
+    Html.RenderPartial("PageHeader");
+}
+
+<section class="aboutpage">
+    <div class="container">
+
+        <h2>@ViewBag.Title</h2>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tamagotchi Assessment</h3>
+            </div>
+            <div class="panel-body">
+                <p>Made by <strong>Tom van Nimwegen</strong> for Avans Hogeschool.</p>
+
+                <p>Using</p>
+                <ul>
+                    <li>.Net 4.6</li>
+                    <li>Entity Framework</li>
+                    <li>WCF Service</li>
+                    <li>Asp.net MVC 5</li>
+                    <li>Bootstrap</li>
+                    <li>Ninject</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
