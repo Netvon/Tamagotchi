@@ -12,6 +12,17 @@
     {
         ViewBag.ButtonState = "disabled";
     }
+
+    var timeOffSet = HttpContext.Current.Session["timezoneoffset"];
+    var countDownUntil = DateTime.Now + Model.CoolDownLeft;
+
+    if (timeOffSet != null)
+    {
+        var offset = int.Parse(timeOffSet.ToString());
+        countDownUntil = countDownUntil.AddMinutes(-1 * offset);
+    }
+
+    var countDownUntilText = countDownUntil.ToString("MM/dd/yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US"));
 }
 
 @{
@@ -38,7 +49,7 @@
                                     Cooldown left
                                 </dt>
                                 <dd>
-                                    <span id="clock" data-countdownto="@(Model.CoolDownUntilUtc.ToLocalTime().ToString("MM/dd/yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US")))"></span>
+                                    <span id="clock" data-countdownto="@(countDownUntilText)"></span>
                                 </dd>
                             }
 

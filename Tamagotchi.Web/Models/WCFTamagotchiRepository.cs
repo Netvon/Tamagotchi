@@ -16,14 +16,14 @@ namespace Tamagotchi.Web.Models
             service = new TamagotchiServiceClient("BasicHttpsBinding_ITamagotchiService");
         }
 
-        public TamagotchiContract Get(string name)
+        public Task<TamagotchiContract> GetAsync(string name)
         {
-            return service.GetTamagotchiByName(name);
+            return service.GetTamagotchiByNameAsync(name);
         }
 
-        public TamagotchiContract Get(int id)
+        public Task<TamagotchiContract> GetAsync(int id)
         {
-            return service.GetTamagotchiById(id);
+            return service.GetTamagotchiByIdAsync(id);
         }
 
         public Task<TamagotchiContract[]> GetAllAsync()
@@ -31,45 +31,45 @@ namespace Tamagotchi.Web.Models
             return service.GetAllTamagotchiAsync();
         }
 
-        public bool Sleep(int id)
+        public Task<bool> SleepAsync(int id)
         {
-            return service.SleepById(id);
+            return service.SleepByIdAsync(id);
         }
 
-        public bool Eat(int id)
+        public Task<bool> EatAsync(int id)
         {
-            return service.EatById(id);
+            return service.EatByIdAsync(id);
         }
 
-        public bool Hug(int id)
+        public Task<bool> HugAsync(int id)
         {
-            return service.HugById(id);
+            return service.HugByIdAsync(id);
         }
 
-        public bool Workout(int id)
+        public Task<bool> WorkoutAsync(int id)
         {
-            return service.WorkoutById(id);
+            return service.WorkoutByIdAsync(id);
         }
 
-        public bool Play(int id)
+        public Task<bool> PlayAsync(int id)
         {
-            return service.PlayById(id);
+            return service.PlayByIdAsync(id);
         }
 
-        public bool Add(string name)
+        public Task<bool> AddAsync(string name)
         {
-            return service.AddTamagotchi(name);
+            return service.AddTamagotchiAsync(name);
         }
 
-        public bool HasData()
+        public Task<bool> HasDataAsync()
         {
             try
             {                
-                return service.IsRunning();
+                return service.IsRunningAsync();
             }
             catch (Exception)
             {
-                return false;
+                return new Task<bool>(() => false);
             }
         }
 
@@ -78,24 +78,24 @@ namespace Tamagotchi.Web.Models
             return service.Endpoint.Address.Uri.ToString();
         }
 
-        public bool ValidId(int id)
+        public Task<bool> IsValidIdAsync(int id)
         {
-            return service.ValidId(id);
+            return service.ValidIdAsync(id);
         }
 
-        public bool ValidName(string name)
+        public Task<bool> IsValidNameAsync(string name)
         {
-            return service.ValidName(name);
+            return service.ValidNameAsync(name);
         }
 
-        public bool SetRuleForTamagotchi(int tamagotchiId, string ruleName, bool setActive)
+        public Task<bool> SetRuleForTamagotchiAsync(int tamagotchiId, string ruleName, bool setActive)
         {
             if(setActive)
             {
-                return service.ActivateRuleForTamagotchiById(tamagotchiId, ruleName);
+                return service.ActivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
             }
 
-            return service.DactivateRuleForTamagotchiById(tamagotchiId, ruleName);
+            return service.DactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
         }
     }
 }

@@ -6,25 +6,25 @@ namespace Tamagotchi.Web.Models
 {
     interface ITamagotchiRepository
     {
-        TamagotchiContract Get(string name);
-        TamagotchiContract Get(int id);
+        Task<TamagotchiContract> GetAsync(string name);
+        Task<TamagotchiContract> GetAsync(int id);
         Task<TamagotchiContract[]> GetAllAsync();
 
-        bool Sleep(int id);
-        bool Eat(int id);
-        bool Hug(int id);
-        bool Workout(int id);
-        bool Play(int id);
+        Task<bool> SleepAsync(int id);
+        Task<bool> EatAsync(int id);
+        Task<bool> HugAsync(int id);
+        Task<bool> WorkoutAsync(int id);
+        Task<bool> PlayAsync(int id);
 
-        bool Add(string name);
+        Task<bool> AddAsync(string name);
 
-        bool HasData();
+        Task<bool> HasDataAsync();
 
         string WhereAmI();
 
-        bool ValidId(int id);
-        bool ValidName(string name);
+        Task<bool> IsValidIdAsync(int id);
+        Task<bool> IsValidNameAsync(string name);
 
-        bool SetRuleForTamagotchi(int tamagotchiId, string ruleName, bool setActive);
+        Task<bool> SetRuleForTamagotchiAsync(int tamagotchiId, string ruleName, bool setActive);
     }
 }

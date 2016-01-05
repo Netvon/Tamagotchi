@@ -23,7 +23,7 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}")]
-        public ActionResult Show(int id)
+        public async Task<ActionResult> Show(int id)
         {
             //if (TempData["ID"] != null)
             //    id = Convert.ToInt32(TempData["ID"]);
@@ -33,7 +33,7 @@ namespace Tamagotchi.Web.Controllers
 
             var repo = GetRepo();
 
-            var tama = repo.Get(id);
+            var tama = await repo.GetAsync(id);
 
             if(tama == null)
                 return RedirectToAction("Error", "Tamagotchi");
@@ -42,14 +42,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/find")]
-        public ActionResult DetailsByName(string name)
+        public async Task<ActionResult> DetailsByName(string name)
         {
             if (string.IsNullOrEmpty(name))
                 return RedirectToAction("Error", "Tamagotchi");
 
             var repo = GetRepo();
 
-            var tama = repo.Get(name);
+            var tama = await repo.GetAsync(name);
 
             if (tama == null)
                 return RedirectToAction("Error", "Tamagotchi");
@@ -60,14 +60,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}/eat")]
-        public ActionResult Eat(int id)
+        public async Task<ActionResult> Eat(int id)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().Eat(id);
+                await GetRepo().EatAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -76,14 +76,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}/sleep")]
-        public ActionResult Sleep(int id)
+        public async Task<ActionResult> Sleep(int id)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().Sleep(id);
+                await GetRepo().SleepAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -92,14 +92,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}/hug")]
-        public ActionResult Hug(int id)
+        public async Task<ActionResult> Hug(int id)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().Hug(id);
+                await GetRepo().HugAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -108,14 +108,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}/workout")]
-        public ActionResult Workout(int id)
+        public async Task<ActionResult> Workout(int id)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().Workout(id);
+                await GetRepo().WorkoutAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -124,14 +124,14 @@ namespace Tamagotchi.Web.Controllers
         }
 
         [Route("~/show/{id}/play")]
-        public ActionResult Play(int id)
+        public async Task<ActionResult> Play(int id)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().Play(id);
+                await GetRepo().PlayAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -139,15 +139,15 @@ namespace Tamagotchi.Web.Controllers
             return RedirectToAction("Error", "Tamagotchi");
         }
 
-        [Route("~/show/{id}/rule/{setActive}")]
-        public ActionResult SetRule(int id, string ruleName, bool setActive)
+        [Route("~/show/{id}/rule")]
+        public async Task<ActionResult> SetRule(int id, string ruleName, bool setActive)
         {
             if (id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
-            if (GetRepo().ValidId(id))
+            if (await GetRepo().IsValidIdAsync(id))
             {
-                GetRepo().SetRuleForTamagotchi(id, ruleName, setActive);
+                await GetRepo().SetRuleForTamagotchiAsync(id, ruleName, setActive);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
             }
@@ -161,22 +161,37 @@ namespace Tamagotchi.Web.Controllers
             return View();
         }
 
-        // POST: Product/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string name)
+        public async Task<ActionResult> Create(string name)
         {
-            var wasCreated = GetRepo().Add(name);
+            var wasCreated = await GetRepo().AddAsync(name);
             return RedirectToAction("Index");
         }
 
-        static ITamagotchiRepository GetRepo()
+        ITamagotchiRepository GetRepo()
         {
-            IKernel kernel = new StandardKernel(new WebModule());
-            var repo = kernel.Get<ITamagotchiRepository>();
-            return repo;
+            if (Session[nameof(ITamagotchiRepository)] == null)
+            {
+                IKernel kernel = new StandardKernel(new WebModule());
+                var repo = kernel.Get<ITamagotchiRepository>();
+
+                Session[nameof(ITamagotchiRepository)] = repo;
+
+                return repo;
+            }
+
+            return Session[nameof(ITamagotchiRepository)] as ITamagotchiRepository;
+        }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (HttpContext.Request.Cookies.AllKeys.Contains("timezoneoffset"))
+            {
+                Session["timezoneoffset"] =
+                    HttpContext.Request.Cookies["timezoneoffset"].Value;
+            }
+            base.OnActionExecuting(filterContext);
         }
     }
 }
