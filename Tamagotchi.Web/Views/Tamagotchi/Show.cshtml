@@ -14,7 +14,7 @@
     }
 
     var timeOffSet = HttpContext.Current.Session["timezoneoffset"];
-    var countDownUntil = DateTime.Now + Model.CoolDownLeft;
+    var countDownUntil = DateTime.UtcNow + Model.CoolDownLeft;
 
     int offset = 0;
 
