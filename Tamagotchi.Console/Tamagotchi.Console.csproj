@@ -103,6 +103,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Service References\TamagotchiService\Tamagotchi.Console.TamagotchiService.CreateContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\TamagotchiService\Tamagotchi.Console.TamagotchiService.TamagotchiContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

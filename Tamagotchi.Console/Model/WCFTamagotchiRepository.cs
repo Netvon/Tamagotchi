@@ -58,7 +58,7 @@ namespace Tamagotchi.Console.Model
 
         public bool Add(string name)
         {
-            return service.AddTamagotchi(name);
+            return service.AddTamagotchi(name).WasCreated;
         }
 
         public bool HasData()

@@ -16,7 +16,7 @@ namespace Tamagotchi.Web.Models
         Task<bool> WorkoutAsync(int id);
         Task<bool> PlayAsync(int id);
 
-        Task<bool> AddAsync(string name);
+        Task<CreateContract> AddAsync(string name);
 
         Task<bool> HasDataAsync();
 

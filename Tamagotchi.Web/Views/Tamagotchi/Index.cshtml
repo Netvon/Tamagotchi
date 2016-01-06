@@ -11,7 +11,14 @@
 <section class="overview">
     <div class="container">
 
-        <h2>Tamagotchi overview</h2>
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="active">Overview</li>
+        </ol>
+
+        <div class="page-header">
+            <h2>Tamagotchi overview</h2>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-body">
@@ -23,7 +30,7 @@
                 {
                     <a class="list-group-item" href="@Url.Action("Show", "Tamagotchi", new { id = item.ID })">
                         <span class="badge">@(item.Status)</span>
-                        @(item.Name)
+                        <strong>@(item.Name)</strong>
                     </a>
                 }
             </div>
@@ -101,5 +108,10 @@
                 }
 
             </table>*@
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="@(Url.Action("Index", "Home"))"><span aria-hidden="true">&larr;</span> Back to Home</a></li>
+            </ul>
+        </nav>
     </div>
 </section>

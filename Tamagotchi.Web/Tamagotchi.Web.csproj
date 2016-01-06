@@ -146,6 +146,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\boredom.png" />
+    <Content Include="Content\Images\dead.png" />
+    <Content Include="Content\Images\health.png" />
+    <Content Include="Content\Images\hunger.png" />
+    <Content Include="Content\Images\neutral.png" />
+    <Content Include="Content\Images\sleep.png" />
     <Content Include="Content\stylish-portfolio.css" />
     <Content Include="favicon.ico" />
     <Content Include="font-awesome\css\font-awesome.css" />
@@ -222,6 +228,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Service References\TamagotchiService\Tamagotchi.Web.TamagotchiService.CreateContract.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\TamagotchiService\TamagotchiService.disco" />
     <None Include="Service References\TamagotchiService\configuration91.svcinfo" />
     <None Include="Service References\TamagotchiService\configuration.svcinfo" />
@@ -256,6 +265,7 @@
     <Content Include="Views\Tamagotchi\Index.cshtml" />
     <Content Include="Views\Shared\PageHeader.cshtml" />
     <Content Include="Views\Tamagotchi\Error.cshtml" />
+    <Content Include="Views\Tamagotchi\CreateError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

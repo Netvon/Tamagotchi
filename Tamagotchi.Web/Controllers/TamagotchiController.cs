@@ -19,15 +19,14 @@ namespace Tamagotchi.Web.Controllers
         {
             ITamagotchiRepository repo = GetRepo();
 
-            return View(await repo.GetAllAsync());
+            var tamagotchiContract = await repo.GetAllAsync();
+
+            return View(tamagotchiContract);
         }
 
         [Route("~/show/{id}")]
         public async Task<ActionResult> Show(int id)
         {
-            //if (TempData["ID"] != null)
-            //    id = Convert.ToInt32(TempData["ID"]);
-
             if(id <= 0)
                 return RedirectToAction("Error", "Tamagotchi");
 
@@ -163,10 +162,24 @@ namespace Tamagotchi.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("~/create")]
         public async Task<ActionResult> Create(string name)
         {
-            var wasCreated = await GetRepo().AddAsync(name);
-            return RedirectToAction("Index");
+            if(string.IsNullOrWhiteSpace(name))
+                return CreateError();
+
+            var createContract = await GetRepo().AddAsync(name);
+
+            if (createContract.WasCreated)
+                return RedirectToAction("Show", "Tamagotchi", new { id = createContract.CreatedId });
+            else
+                return CreateError();
+        }
+
+        [Route("~/create/error")]
+        public ActionResult CreateError()
+        {
+            return View("CreateError");
         }
 
         ITamagotchiRepository GetRepo()

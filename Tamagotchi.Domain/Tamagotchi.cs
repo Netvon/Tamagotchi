@@ -19,6 +19,7 @@ namespace Tamagotchi.Domain
         int _hunger;
         int _sleep;
         DateTime _lastAccessedOn;
+        bool _hasDied;
         #endregion
 
         #region Constructors
@@ -34,6 +35,8 @@ namespace Tamagotchi.Domain
             Hunger = hunger;
             Health = health;
             Boredom = boredom;
+
+            CreatedOnUtc = lastAccess;
         }
 
         public Tamagotchi(string name, params Rule[] rules)
@@ -56,6 +59,8 @@ namespace Tamagotchi.Domain
 
             LastAllRulesPassedUtc = LastAccessedOnUtc;
             CoolDown = TimeSpan.Zero;
+
+            CreatedOnUtc = LastAccessedOnUtc;
         }
 
         Tamagotchi()
@@ -109,8 +114,22 @@ namespace Tamagotchi.Domain
         }
 
         public bool HasMunchies { get; set; }
-        public bool HasDied { get; set; }
 
+        public bool HasDied
+        {
+            get
+            {
+                return _hasDied;
+            }
+
+            set
+            {
+                _hasDied = value;
+
+                if (_hasDied)
+                    DiedOnUtc = DateTime.UtcNow;
+            }
+        }
 
         public DateTime LastAccessedOnUtc
         {
@@ -130,6 +149,9 @@ namespace Tamagotchi.Domain
         public DateTime LastAllRulesPassedUtc { get; set; }
 
         public TimeSpan CoolDown { get; internal set; }
+
+        public DateTime CreatedOnUtc { get; internal set; }
+        public DateTime? DiedOnUtc { get; internal set; }
 
 
         public virtual ICollection<TamagotchiRule> TamagotchiRules { get; /*[ExcludeFromCodeCoverage]*/ set; }

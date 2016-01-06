@@ -16,9 +16,11 @@
     var timeOffSet = HttpContext.Current.Session["timezoneoffset"];
     var countDownUntil = DateTime.Now + Model.CoolDownLeft;
 
+    int offset = 0;
+
     if (timeOffSet != null)
     {
-        var offset = int.Parse(timeOffSet.ToString());
+        offset = int.Parse(timeOffSet.ToString());
         countDownUntil = countDownUntil.AddMinutes(-1 * offset);
     }
 
@@ -32,15 +34,24 @@
 <section class="overview">
     <div class="container">
 
-        <h2>@Model.Name</h2>
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("Overview", "Index", "Tamagotchi")</li>
+            <li class="active">@Model.Name</li>
+        </ol>
+
+        <div class="page-header">
+            <h2>@Model.Name</h2>
+        </div>
+
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Status</h3>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-10">
+                <div class="media">
+                    <div class="media-body">
                         <dl>
 
                             @if (Model.IsInCoolDown)
@@ -58,14 +69,31 @@
                             </dt>
 
                             <dd>
-                                @Html.DisplayFor(model => model.Status) <span id="clock"></span>
+                                @Html.DisplayFor(model => model.Status)
                             </dd>
+
+                            <dt>
+                                Created On
+                            </dt>
+
+                            <dd>
+                                @(Model.CreatedOnUtc.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))
+                            </dd>
+
+                            @if (Model.HasDied)
+                            {
+                                <dt>
+                                    Died On
+                                </dt>
+
+                                <dd>
+                                    @(Model.DiedOnUtc?.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))
+                                </dd>
+                            }
                         </dl>
                     </div>
-                    <div class="col-md-2">
-                        <p class="lead" style="float: right">
-                            <i class="fa fa-frown-o"></i>
-                        </p>
+                    <div class="media-right media-middle">
+                        <img src="@Url.Content($"~/Content/Images/{Model.Status.ToLower()}.png")" />
                     </div>
                 </div>
             </div>
@@ -80,7 +108,7 @@
                             <h3 class="panel-title">Actions</h3>
                         </div>
                         <div class="panel-body">
-                            <p>Some text explaining what these are.</p>
+                            <p>Every Tamagotchi can perform a set of action that will have an effect on its details.</p>
                         </div>
 
                         <div class="list-group">
@@ -193,7 +221,7 @@
                     <h3 class="panel-title">Rules</h3>
                 </div>
                 <div class="panel-body">
-                    <p>Some text explaining what these are.</p>
+                    <p>Over time a set of rules are applied to your Tamagotchi. Here you can activate of deactivate rules to create your own personal experience.</p>
                 </div>
 
                 <ul class="list-group">
@@ -225,8 +253,10 @@
             </div>
         }
 
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="@(Url.Action("Index", "Tamagotchi"))"><span aria-hidden="true">&larr;</span> Back to overview</a></li>
+            </ul>
+        </nav>
     </div>
 </section>

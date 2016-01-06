@@ -17,15 +17,16 @@ namespace Tamagotchi.Service.Model
             this._context = context;
         }
 
-        public bool Add(string name)
+        public CreatedArguments Add(string name)
         {
             if (string.IsNullOrWhiteSpace(name) || _context.Tamagotchis.Any(t => t.Name == name))
-                return false;
+                return new CreatedArguments(0, name, false);
 
             var tamagotchi = new Domain.Tamagotchi(name, _context.Rules.ToArray());
 
             _context.Tamagotchis.Add(tamagotchi);
-            return SaveChanges();
+            var wasCreated = SaveChanges();
+            return new CreatedArguments(tamagotchi.TamagotchiID, name, wasCreated);
         }
 
         public Domain.Tamagotchi Get(int id)

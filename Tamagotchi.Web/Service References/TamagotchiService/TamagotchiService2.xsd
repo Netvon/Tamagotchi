@@ -179,7 +179,7 @@
   <xs:element name="AddTamagotchiResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="AddTamagotchiResult" type="xs:boolean" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" minOccurs="0" name="AddTamagotchiResult" nillable="true" type="q3:CreateContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -233,7 +233,7 @@
   <xs:element name="GetAllTamagotchiResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" minOccurs="0" name="GetAllTamagotchiResult" nillable="true" type="q3:ArrayOfTamagotchiContract" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" minOccurs="0" name="GetAllTamagotchiResult" nillable="true" type="q4:ArrayOfTamagotchiContract" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

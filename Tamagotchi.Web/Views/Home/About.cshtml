@@ -9,7 +9,14 @@
 <section class="aboutpage">
     <div class="container">
 
-        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ol>
+
+        <div class="page-header">
+            <h2>@ViewBag.Title</h2>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">

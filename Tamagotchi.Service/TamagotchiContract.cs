@@ -31,6 +31,9 @@ namespace Tamagotchi.Service
                 CoolDownUntilUtc = DateTime.MinValue;
             }
 
+            CreatedOnUtc = tama.CreatedOnUtc;
+            DiedOnUtc = tama.DiedOnUtc;
+
             Health = tama.Health;
             Hungriness = tama.Hunger;
             Sleepiness = tama.Sleep;
@@ -62,6 +65,12 @@ namespace Tamagotchi.Service
 
         [DataMember]
         public DateTime CoolDownUntilUtc { get; set; }
+
+        [DataMember]
+        public DateTime CreatedOnUtc { get; set; }
+
+        [DataMember]
+        public DateTime? DiedOnUtc { get; set; }
 
         [DataMember]
         public int Health { get; set; }

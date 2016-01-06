@@ -56,7 +56,7 @@ namespace Tamagotchi.Web.Models
             return service.PlayByIdAsync(id);
         }
 
-        public Task<bool> AddAsync(string name)
+        public Task<CreateContract> AddAsync(string name)
         {
             return service.AddTamagotchiAsync(name);
         }

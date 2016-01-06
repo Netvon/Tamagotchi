@@ -46,9 +46,9 @@ namespace Tamagotchi.Service
             return true;
         }
 
-        public bool AddTamagotchi(string name)
+        public CreateContract AddTamagotchi(string name)
         {
-            return repo.Add(name);
+            return new CreateContract(repo.Add(name));
         }
 
         public bool DectivateRuleForTamagotchi(string tamagotchiName, string ruleName)

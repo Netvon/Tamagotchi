@@ -6,6 +6,8 @@
       <xs:element minOccurs="0" name="Boredom" type="xs:int" />
       <xs:element minOccurs="0" name="CoolDownLeft" type="ser:duration" />
       <xs:element minOccurs="0" name="CoolDownUntilUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedOnUtc" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DiedOnUtc" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="HasDied" type="xs:boolean" />
       <xs:element minOccurs="0" name="Health" type="xs:int" />
       <xs:element minOccurs="0" name="Hungriness" type="xs:int" />
@@ -33,6 +35,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RuleContract" nillable="true" type="tns:RuleContract" />
+  <xs:complexType name="CreateContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedId" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WasCreated" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CreateContract" nillable="true" type="tns:CreateContract" />
   <xs:complexType name="ArrayOfTamagotchiContract">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TamagotchiContract" nillable="true" type="tns:TamagotchiContract" />

@@ -32,6 +32,12 @@ namespace Tamagotchi.Web.TamagotchiService {
         private System.DateTime CoolDownUntilUtcField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreatedOnUtcField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DiedOnUtcField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool HasDiedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -103,6 +109,32 @@ namespace Tamagotchi.Web.TamagotchiService {
                 if ((this.CoolDownUntilUtcField.Equals(value) != true)) {
                     this.CoolDownUntilUtcField = value;
                     this.RaisePropertyChanged("CoolDownUntilUtc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedOnUtc {
+            get {
+                return this.CreatedOnUtcField;
+            }
+            set {
+                if ((this.CreatedOnUtcField.Equals(value) != true)) {
+                    this.CreatedOnUtcField = value;
+                    this.RaisePropertyChanged("CreatedOnUtc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DiedOnUtc {
+            get {
+                return this.DiedOnUtcField;
+            }
+            set {
+                if ((this.DiedOnUtcField.Equals(value) != true)) {
+                    this.DiedOnUtcField = value;
+                    this.RaisePropertyChanged("DiedOnUtc");
                 }
             }
         }
@@ -327,6 +359,83 @@ namespace Tamagotchi.Web.TamagotchiService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CreateContract", Namespace="http://schemas.datacontract.org/2004/07/Tamagotchi.Service")]
+    [System.SerializableAttribute()]
+    public partial class CreateContract : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CreatedIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CreatedNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool WasCreatedField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CreatedId {
+            get {
+                return this.CreatedIdField;
+            }
+            set {
+                if ((this.CreatedIdField.Equals(value) != true)) {
+                    this.CreatedIdField = value;
+                    this.RaisePropertyChanged("CreatedId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CreatedName {
+            get {
+                return this.CreatedNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CreatedNameField, value) != true)) {
+                    this.CreatedNameField = value;
+                    this.RaisePropertyChanged("CreatedName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool WasCreated {
+            get {
+                return this.WasCreatedField;
+            }
+            set {
+                if ((this.WasCreatedField.Equals(value) != true)) {
+                    this.WasCreatedField = value;
+                    this.RaisePropertyChanged("WasCreated");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TamagotchiService.ITamagotchiService")]
     public interface ITamagotchiService {
@@ -404,10 +513,10 @@ namespace Tamagotchi.Web.TamagotchiService {
         System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.TamagotchiContract> GetTamagotchiByIdAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/AddTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/AddTamagotchiResponse")]
-        bool AddTamagotchi(string name);
+        Tamagotchi.Web.TamagotchiService.CreateContract AddTamagotchi(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/AddTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/AddTamagotchiResponse")]
-        System.Threading.Tasks.Task<bool> AddTamagotchiAsync(string name);
+        System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.CreateContract> AddTamagotchiAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiResponse")]
         bool RemoveTamagotchi(string name);
@@ -587,11 +696,11 @@ namespace Tamagotchi.Web.TamagotchiService {
             return base.Channel.GetTamagotchiByIdAsync(id);
         }
         
-        public bool AddTamagotchi(string name) {
+        public Tamagotchi.Web.TamagotchiService.CreateContract AddTamagotchi(string name) {
             return base.Channel.AddTamagotchi(name);
         }
         
-        public System.Threading.Tasks.Task<bool> AddTamagotchiAsync(string name) {
+        public System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.CreateContract> AddTamagotchiAsync(string name) {
             return base.Channel.AddTamagotchiAsync(name);
         }
         

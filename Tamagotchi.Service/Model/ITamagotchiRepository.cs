@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Tamagotchi.Service.Model
 {
@@ -9,7 +10,7 @@ namespace Tamagotchi.Service.Model
         Domain.Tamagotchi Get(int id);
 
         bool Remove(string name);
-        bool Add(string name);
+        CreatedArguments Add(string name);
 
         bool SaveChanges();
 

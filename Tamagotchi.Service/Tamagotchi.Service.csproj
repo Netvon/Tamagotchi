@@ -78,6 +78,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateContract.cs" />
+    <Compile Include="Model\CreatedArguments.cs" />
     <Compile Include="Model\EntityTamagotchiRepository.cs" />
     <Compile Include="Model\ITamagotchiRepository.cs" />
     <Compile Include="Model\MyContext.cs" />
