@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tamagotchi.Console.TamagotchiService;
 
 namespace Tamagotchi.Console.Model
 {
     class WCFTamagotchiRepository : ITamagotchiRepository
     {
-        TamagotchiServiceClient service;
+        readonly TamagotchiServiceClient service;
 
         public WCFTamagotchiRepository()
         {
@@ -59,6 +55,11 @@ namespace Tamagotchi.Console.Model
         public bool Add(string name)
         {
             return service.AddTamagotchi(name).WasCreated;
+        }
+
+        public bool Remove(string name)
+        {
+            return service.RemoveTamagotchiByName(name);
         }
 
         public bool HasData()

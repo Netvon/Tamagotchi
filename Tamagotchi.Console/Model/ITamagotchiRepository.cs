@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Tamagotchi.Console.TamagotchiService;
+﻿using Tamagotchi.Console.TamagotchiService;
 
 namespace Tamagotchi.Console.Model
 {
@@ -17,6 +15,7 @@ namespace Tamagotchi.Console.Model
         bool Play(string name);
 
         bool Add(string name);
+        bool Remove(string name);
 
         bool HasData();
 

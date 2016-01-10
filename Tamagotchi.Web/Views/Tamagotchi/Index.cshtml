@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tamagotchi.Web.TamagotchiService.TamagotchiContract>
+﻿@model Tamagotchi.Web.Models.TamagotchiOverviewModel
 
 @{
     ViewBag.Title = "Overview";
@@ -26,7 +26,7 @@
             </div>
 
             <div class="list-group">
-                @foreach (var item in Model)
+                @foreach (var item in Model.Tamagotchis)
                 {
                     <a class="list-group-item" href="@Url.Action("Show", "Tamagotchi", new { id = item.ID })">
                         <span class="badge">@(item.Status)</span>
@@ -35,80 +35,40 @@
                 }
             </div>
         </div>
-
-
-        @*<table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Boredom)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Health)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Hungriness)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Sleepiness)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="@($"{item.Boredom}")" aria-valuemin="0" aria-valuemax="100"
-                                     style="@($"width: {item.Boredom}%; min-width: 5em;")">
-                                    @($"{item.Boredom} points")
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="@($"{item.Health}")" aria-valuemin="0" aria-valuemax="100"
-                                     style="@($"width: {item.Health}%; min-width: 5em;")">
-                                    @($"{item.Health} points")
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="@($"{item.Hungriness}")" aria-valuemin="0" aria-valuemax="100"
-                                     style="@($"width: {item.Hungriness}%; min-width: 5em;")">
-                                    @($"{item.Hungriness} points")
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="@($"{item.Sleepiness}")" aria-valuemin="0" aria-valuemax="100"
-                                     style="@($"width: {item.Sleepiness}%; min-width: 5em;")">
-                                    @($"{item.Sleepiness} points")
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            @Html.ActionLink("Details", "Show", new { id = item.ID })
-                        </td>
-                    </tr>
-                }
-
-            </table>*@
         <nav>
+            @if (Model.MaxPage > 1)
+            {
+                <ul class="pagination">
+                    @if (Model.HasPrevPage)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", new { page = Model.PrevPage })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    }
+                    @foreach (var p in Model.Pages)
+                    {
+                        if (Model.Page != (p - 1))
+                        {
+                            <li>@Html.ActionLink(p.ToString(), actionName: "Index", routeValues: new { page = p - 1 })</li>
+                        }
+                        else
+                        {
+                            <li class="active">@Html.ActionLink(p.ToString(), actionName: "Index", routeValues: new { page = p - 1 })</li>
+                        }
+                    }
+                    @if (Model.HasNextPage)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", new { page = Model.NextPage})" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+
             <ul class="pager">
                 <li class="previous"><a href="@(Url.Action("Index", "Home"))"><span aria-hidden="true">&larr;</span> Back to Home</a></li>
             </ul>

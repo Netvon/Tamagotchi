@@ -10,6 +10,7 @@ namespace Tamagotchi.Service.Model
         Domain.Tamagotchi Get(int id);
 
         bool Remove(string name);
+        bool Remove(int id);
         CreatedArguments Add(string name);
 
         bool SaveChanges();

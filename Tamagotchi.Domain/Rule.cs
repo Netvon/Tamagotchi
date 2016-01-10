@@ -5,9 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tamagotchi.Domain
 {
+    /// <summary>
+    /// Represents a Rule that can be applied to a Tamagotchi
+    /// </summary>
     public abstract class Rule
     {
-        public Rule(string name, string discription, int order)
+        protected Rule(string name, string discription, int order)
         {
             RuleName = name;
             Discription = discription;
@@ -34,6 +37,9 @@ namespace Tamagotchi.Domain
         /*[ExcludeFromCodeCoverage]*/
         public virtual ICollection<TamagotchiRule> TamagotchiRules { get; internal set; }
 
+        /// <summary>
+        /// Apply this Rule to a Tamagotchi
+        /// </summary>
         public abstract bool Execute(Tamagotchi tama, DateTime now);
 
         public virtual void Deactivate(Tamagotchi tama) { /* do nothing */ }

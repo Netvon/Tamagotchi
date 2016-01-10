@@ -11,6 +11,7 @@ namespace Tamagotchi.Domain
     {
         #region Constants
         const int MaxPropValue = 100;
+        const int MinPropValue = 0;
         #endregion
 
         #region Fields
@@ -24,9 +25,9 @@ namespace Tamagotchi.Domain
 
         #region Constructors
 
-        public Tamagotchi(int boredom, int health, int hunger, 
+        public Tamagotchi(int boredom, int health, int hunger,
             int sleep, DateTime lastAccess, TimeSpan coolDown)
-            :this()
+            : this()
         {
             CoolDown = coolDown;
             LastAccessedOnUtc = lastAccess;
@@ -54,7 +55,7 @@ namespace Tamagotchi.Domain
             : this()
         {
             Name = name;
-            if(LastAccessedOnUtc == DateTime.MinValue)
+            if (LastAccessedOnUtc == DateTime.MinValue)
                 LastAccessedOnUtc = DateTime.UtcNow;
 
             LastAllRulesPassedUtc = LastAccessedOnUtc;
@@ -80,33 +81,33 @@ namespace Tamagotchi.Domain
 
         [Key]
         /*[ExcludeFromCodeCoverage]*/ // not testing this prop
-        public int TamagotchiID { get; set; }
+        public int TamagotchiID { get; internal set; }
 
         [Required]
-        public string Name { get; /*[ExcludeFromCodeCoverage]*/ set; }
+        public string Name { get; /*[ExcludeFromCodeCoverage]*/ internal set; }
 
-        [Range(0, MaxPropValue)]
+        [Range(MinPropValue, MaxPropValue)]
         public int Boredom
         {
             get { return _boredom; }
             internal set { _boredom = ClampValue(value); }
         }
 
-        [Range(0, MaxPropValue)]
+        [Range(MinPropValue, MaxPropValue)]
         public int Health
         {
             get { return _health; }
             internal set { _health = ClampValue(value); }
         }
 
-        [Range(0, MaxPropValue)]
+        [Range(MinPropValue, MaxPropValue)]
         public int Hunger
         {
             get { return _hunger; }
             internal set { _hunger = ClampValue(value); }
         }
 
-        [Range(0, MaxPropValue)]
+        [Range(MinPropValue, MaxPropValue)]
         public int Sleep
         {
             get { return _sleep; }
@@ -146,7 +147,7 @@ namespace Tamagotchi.Domain
 
         //public DateTime LastRefreshedOn { get; internal set; }
 
-        public DateTime LastAllRulesPassedUtc { get; set; }
+        public DateTime LastAllRulesPassedUtc { get; internal set; }
 
         public TimeSpan CoolDown { get; internal set; }
 
@@ -154,7 +155,7 @@ namespace Tamagotchi.Domain
         public DateTime? DiedOnUtc { get; internal set; }
 
 
-        public virtual ICollection<TamagotchiRule> TamagotchiRules { get; /*[ExcludeFromCodeCoverage]*/ set; }
+        public virtual ICollection<TamagotchiRule> TamagotchiRules { get; /*[ExcludeFromCodeCoverage]*/ internal set; }
 
         [NotMapped]
         public string Status
@@ -169,7 +170,7 @@ namespace Tamagotchi.Domain
                     new { Name = nameof(Boredom), Value = Boredom },
                     new { Name = nameof(Health), Value = Health },
                     new { Name = nameof(Hunger), Value = Hunger },
-                    new { Name = nameof(Sleep), Value = Sleep },
+                    new { Name = nameof(Sleep), Value = Sleep }
                 };
 
                 int max = properties.Max(p => p.Value);
@@ -190,12 +191,12 @@ namespace Tamagotchi.Domain
 
         public bool EatAction(DateTime now)
         {
-            return PerformAction(now, () => Hunger = 0, TimeSpan.FromSeconds(30));
+            return PerformAction(now, () => Hunger = MinPropValue, TimeSpan.FromSeconds(30));
         }
 
         public bool SleepAction(DateTime now)
         {
-            return PerformAction(now, () => Sleep = 0, TimeSpan.FromHours(2));
+            return PerformAction(now, () => Sleep = MinPropValue, TimeSpan.FromHours(2));
         }
 
         public bool PlayAction(DateTime now)
@@ -247,11 +248,11 @@ namespace Tamagotchi.Domain
 
             var allPassed = allActive
                 .OrderBy(r => r.Rule.Order)
-                .All(r => 
+                .All(r =>
                 {
                     var @out = r.Rule.Execute(this, now);
 
-                    if(@out)
+                    if (@out)
                         r.LastPassedOnUtc = now;
 
                     return @out;
@@ -266,10 +267,10 @@ namespace Tamagotchi.Domain
             return false;
         }
 
-        public bool IsInCoolDown(DateTime now) 
+        public bool IsInCoolDown(DateTime now)
             => now < LastAccessedOnUtc + CoolDown;
 
-        int ClampValue(int value) 
+        int ClampValue(int value)
             => Math.Min(Math.Max(value, 0), MaxPropValue);
 
         /*[ExcludeFromCodeCoverage]*/ // can't test something random
@@ -278,7 +279,7 @@ namespace Tamagotchi.Domain
             if (!IsCrazy)
                 return false;
 
-            Random r = new Random();
+            var r = new Random();
 
             if (r.Next(0, 2) == 0)
             {

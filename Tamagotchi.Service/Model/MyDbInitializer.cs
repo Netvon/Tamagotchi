@@ -7,7 +7,7 @@ namespace Tamagotchi.Service.Model
     {
         protected override void Seed(MyContext context)
         {
-            IKernel kernel = new StandardKernel(new TamagotchiModule());
+            var kernel = new StandardKernel(new TamagotchiModule());
 
             var rules = kernel.GetAll<Domain.Rule>();
             context.Rules.AddRange(rules);

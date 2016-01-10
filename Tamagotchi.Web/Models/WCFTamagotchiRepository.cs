@@ -9,7 +9,7 @@ namespace Tamagotchi.Web.Models
 {
     class WCFTamagotchiRepository : ITamagotchiRepository
     {
-        TamagotchiServiceClient service;
+        readonly TamagotchiServiceClient service;
 
         public WCFTamagotchiRepository()
         {
@@ -96,6 +96,11 @@ namespace Tamagotchi.Web.Models
             }
 
             return service.DactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
+        }
+
+        public Task<bool> RemoveAsync(int id)
+        {
+            return service.RemoveTamagotchiByIdAsync(id);
         }
     }
 }

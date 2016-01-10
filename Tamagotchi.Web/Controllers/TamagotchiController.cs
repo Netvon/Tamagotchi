@@ -15,13 +15,26 @@ namespace Tamagotchi.Web.Controllers
     public class TamagotchiController : Controller
     {
         // GET: Tamagotchi
-        public async Task<ActionResult> Index()
+        [Route("{page?}")]
+        public async Task<ActionResult> Index(int page = 0)
         {
             ITamagotchiRepository repo = GetRepo();
 
             var tamagotchiContract = await repo.GetAllAsync();
 
-            return View(tamagotchiContract);
+            int per_page = 10;
+            int all_count = tamagotchiContract.Count();
+            int page_num = (int)Math.Ceiling(all_count / (double)per_page);
+
+            if (page > page_num)
+                page = page_num;
+
+            if (page < 0)
+                page = 0;
+
+            var param = new TamagotchiOverviewModel(tamagotchiContract.Skip(per_page * page).Take(per_page), page, page_num);
+
+            return View(param);
         }
 
         [Route("~/show/{id}")]
@@ -40,6 +53,29 @@ namespace Tamagotchi.Web.Controllers
             return View(tama);
         }
 
+        [Route("~/delete/{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            if (id <= 0)
+                return RedirectToAction("Error", "Tamagotchi");
+
+            var repo = GetRepo();
+
+            var tama = await repo.GetAsync(id);
+
+            if (tama == null)
+                return RedirectToAction("Error", "Tamagotchi");
+
+            int in_id = id;
+
+            if (!tama.HasDied)
+                return RedirectToAction("DeleteError", "Tamagotchi", new { id = in_id });
+
+            await repo.RemoveAsync(id);
+
+            return RedirectToAction("Index", "Tamagotchi");
+        }
+
         [Route("~/find")]
         public async Task<ActionResult> DetailsByName(string name)
         {
@@ -52,8 +88,6 @@ namespace Tamagotchi.Web.Controllers
 
             if (tama == null)
                 return RedirectToAction("Error", "Tamagotchi");
-
-            //TempData["ID"] = tama.ID;
 
             return RedirectToAction("Show", "Tamagotchi", new { id = tama.ID });
         }
@@ -160,6 +194,12 @@ namespace Tamagotchi.Web.Controllers
             return View();
         }
 
+        [Route("~/delete/error")]
+        public ActionResult DeleteError(int? id)
+        {
+            return View(id);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("~/create")]
@@ -199,10 +239,11 @@ namespace Tamagotchi.Web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (HttpContext.Request.Cookies.AllKeys.Contains("timezoneoffset"))
+            const string Timezone = "timezoneoffset";
+            if (HttpContext.Request.Cookies.AllKeys.Contains(Timezone))
             {
-                Session["timezoneoffset"] =
-                    HttpContext.Request.Cookies["timezoneoffset"].Value;
+                Session[Timezone] =
+                    HttpContext.Request.Cookies[Timezone].Value;
             }
             base.OnActionExecuting(filterContext);
         }

@@ -6,12 +6,12 @@ namespace Tamagotchi.Domain
     {
         const int HealthThreshold = 100;
 
-        public CrazinessRule() 
+        public CrazinessRule()
             : base("Craziness Rule",
                   $"If health is equal to {HealthThreshold} points the Tamagotchi " +
-                  "obtains the Crazy status meaning it has a 50% chance of " + 
+                  "obtains the Crazy status meaning it has a 50% chance of " +
                   "dying when preforming actions",
-                  order : 6)
+                  order: 6)
         { }
 
         public override void Deactivate(Tamagotchi tama)

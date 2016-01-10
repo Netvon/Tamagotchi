@@ -1,0 +1,47 @@
+﻿@model int?
+@{
+    ViewBag.Title = "Error";
+}
+
+@{
+    Html.RenderPartial("PageHeader");
+}
+
+<section class="overview">
+    <div class="container">
+
+        <ol class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="active">Error</li>
+        </ol>
+
+        <div class="page-header">
+            <h2><i class="fa fa-frown-o"></i></h2>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Not deleted</h3>
+            </div>
+            <div class="panel-body">
+                @if (Model != null)
+                {
+                    <p>That Tamagotchi is alive and well, you can't delete it!</p>
+                    <p>
+                        @Html.ActionLink("Get me out of here", actionName: "Show",
+                        controllerName: "Tamagotchi",
+                        routeValues: new { id = (int)Model }, htmlAttributes: null)
+                    </p>
+                }
+                else
+                {
+                    <p>Something went wrong.</p>
+                    <p>
+                        @Html.ActionLink("Get me out of here", actionName: "Index",
+                        controllerName: "Tamagotchi")
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</section>

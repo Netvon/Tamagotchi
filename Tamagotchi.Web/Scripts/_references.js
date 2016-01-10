@@ -1,6 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="../js/bootstrap.js" />
-/// <reference path="../js/jquery.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="cliendatetime.js" />
 /// <reference path="jquery.cookie-1.4.1.min.js" />

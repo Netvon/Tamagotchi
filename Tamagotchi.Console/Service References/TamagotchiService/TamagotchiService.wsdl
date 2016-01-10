@@ -110,11 +110,17 @@
   <wsdl:message name="ITamagotchiService_AddTamagotchi_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddTamagotchiResponse" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_RemoveTamagotchi_InputMessage">
-    <wsdl:part name="parameters" element="tns:RemoveTamagotchi" />
+  <wsdl:message name="ITamagotchiService_RemoveTamagotchiByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveTamagotchiByName" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_RemoveTamagotchi_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RemoveTamagotchiResponse" />
+  <wsdl:message name="ITamagotchiService_RemoveTamagotchiByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveTamagotchiByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_RemoveTamagotchiById_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveTamagotchiById" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_RemoveTamagotchiById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveTamagotchiByIdResponse" />
   </wsdl:message>
   <wsdl:message name="ITamagotchiService_ValidId_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidId" />
@@ -217,9 +223,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/AddTamagotchi" message="tns:ITamagotchiService_AddTamagotchi_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/AddTamagotchiResponse" message="tns:ITamagotchiService_AddTamagotchi_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RemoveTamagotchi">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchi" message="tns:ITamagotchiService_RemoveTamagotchi_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiResponse" message="tns:ITamagotchiService_RemoveTamagotchi_OutputMessage" />
+    <wsdl:operation name="RemoveTamagotchiByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByName" message="tns:ITamagotchiService_RemoveTamagotchiByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByNameResponse" message="tns:ITamagotchiService_RemoveTamagotchiByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveTamagotchiById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById" message="tns:ITamagotchiService_RemoveTamagotchiById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByIdResponse" message="tns:ITamagotchiService_RemoveTamagotchiById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidId">
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/ValidId" message="tns:ITamagotchiService_ValidId_InputMessage" />
@@ -373,8 +383,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RemoveTamagotchi">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchi" style="document" />
+    <wsdl:operation name="RemoveTamagotchiByName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveTamagotchiById">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -575,8 +594,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RemoveTamagotchi">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchi" style="document" />
+    <wsdl:operation name="RemoveTamagotchiByName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveTamagotchiById">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -6,8 +6,8 @@ namespace Tamagotchi.Domain
     {
         const int HungerThreshold = 80;
 
-        public MuchiesRule() 
-            : base("Munchies Rule", 
+        public MuchiesRule()
+            : base("Munchies Rule",
                   $"If boredom is over {HungerThreshold} points, hungriness rises two times faster",
                   order: 2)
         { }

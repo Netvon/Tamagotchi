@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Tamagotchi.Console.Model;
 using Tamagotchi.Console.TamagotchiService;
 
@@ -19,13 +17,15 @@ namespace Tamagotchi.Console.Controller
             _repo = repo;
         }
 
+        string AppName => "Tamagotchi Console App";
+
         string Header =>
             "================================================================================" +
             "= Tamagotchi Console App - Made by Tom van Nimwegen 2015-2016                  =" +
             "================================================================================";
 
         string WelcomeMessage =>
-            "Hi there! Welcome to the Tamagotchi Console App.";
+            $"Hi there! Welcome to the {AppName}.";
 
         string HelpMessage =>
             $"Type [quit] to close the application.{NewLine}" +
@@ -36,6 +36,8 @@ namespace Tamagotchi.Console.Controller
 
         public void Start()
         {
+            System.Console.Title = AppName;
+
             while (true)
             {
                 System.Console.Clear();
@@ -47,7 +49,7 @@ namespace Tamagotchi.Console.Controller
                 if (!_repo.HasData())
                 {
                     WriteLine("A connection error occured", ConsoleColor.Red);
-                    AskForInput("Press any ket to continue");
+                    AskForInput("Press any key to continue");
                     return;
                 }
 
@@ -94,6 +96,11 @@ namespace Tamagotchi.Console.Controller
         {
             string input = "";
 
+            int page = 0;
+            int per_page = 10;
+            int all_count = 0;
+            int page_num = 0;
+
             while (true)
             {
                 System.Console.Clear();
@@ -103,15 +110,26 @@ namespace Tamagotchi.Console.Controller
                 WriteLine();
 
                 WriteLine("Type [quit] to close the application." + NewLine +
-                                  "Type [back] to go back to the start." + NewLine +
-                                  "Type the name of a Tamagotchi to view it.");
+                        "Type [back] to go back to the start." + NewLine +
+                        "Type the name or # of a Tamagotchi to view it.");
 
                 WriteLine();
 
-                var all = _repo.GetAll();
+                var all = _repo.GetAll().AsEnumerable();
+                all_count = all.Count();
+
+                if (all_count > 10)
+                {
+                    page_num = (int)Math.Ceiling(all_count / (double)per_page);
+                    WriteLine($"Viewing page: {page + 1}/{page_num} - Total: {all_count}");
+                    WriteLine("Type [next]/[prev] to go to the next/previous page.");
+                    WriteLine();
+
+                    all = all.Skip(per_page * page).Take(per_page);
+                }
 
                 foreach (var item in all)
-                    WriteLine($"{item.ID}: [Name: {item.Name}] [Status: {item.Status}]");
+                    WriteLine($"#{item.ID}: [Name: {item.Name}] [Status: {item.Status}]");
 
                 WriteLine();
 
@@ -120,19 +138,48 @@ namespace Tamagotchi.Console.Controller
                 if (input == "quit" || input == "back")
                     break;
 
+                if (input == "next" && page_num > 1)
+                {
+                    page++;
+                    page %= page_num;
+                    continue;
+                }
+
+                if (input == "prev" && page_num > 1)
+                {
+                    page--;
+                    if (page < 0)
+                        page = page_num -1;
+                    continue;
+                }
+
                 if (input.StartsWith("@", StringComparison.Ordinal))
                     input = input.Substring(1);
 
-                if (all.Any(t => t.Name.ToLower() == input))
+                var tama = all.FirstOrDefault(t => t.Name.ToLower() == input);
+                if (tama == null)
+                    tama = all.FirstOrDefault(t => t.ID.ToString() == input);
+
+                if (tama != null)
                 {
-                    var output = StartDetailView(all.FirstOrDefault(t => t.Name.ToLower() == input));
+                    var output = StartDetailView(tama);
                     if (output == "back")
                         continue;
 
                     if (output == "quit")
                         return output;
 
+                    WriteLine("Tamagotchi not found.", ConsoleColor.Red);
+                    AskForInput("Press any button to continue");
+
                     break;
+                }
+
+                if(tama == null)
+                {
+                    WriteLine("Tamagotchi not found.", ConsoleColor.Red);
+                    AskForInput("Press any button to continue");
+                    continue;
                 }
 
                 WriteLine("Command not recognized.", ConsoleColor.Red);
@@ -172,6 +219,9 @@ namespace Tamagotchi.Console.Controller
                         "Type [back] to go back to the Tamgotchi overview." + NewLine +
                         "Type [rules] to view the rules for this Tamagotchi." + NewLine +
                         "Type [refresh]/[r] to update this page.");
+
+                if (tama.HasDied)
+                    WriteLine("Type [delete] to delete this Tamagotchi.");
 
                 if (!tama.IsInCoolDown && !tama.HasDied)
                     WriteLine("Available actions:" + NewLine +
@@ -234,6 +284,25 @@ namespace Tamagotchi.Console.Controller
                         tama = _repo.Get(tama.Name);
 
                         break;
+
+                    case "delete":
+                    case "remove":
+                    case "d":
+                        if (!tama.HasDied)
+                        {
+                            WriteLine("Alive Tamagotchis cannot be deleted.", ConsoleColor.Red);
+                            AskForInput("Press any button to continue");
+                            break;
+                        }
+
+                        _repo.Remove(tama.Name);
+                        return "back";
+
+                    case "delete -g":
+                    case "remove -g":
+                    case "d -g":
+                        _repo.Remove(tama.Name);
+                        return "back";
 
                     default:
                         WriteLine("Command not recognized.", ConsoleColor.Red);

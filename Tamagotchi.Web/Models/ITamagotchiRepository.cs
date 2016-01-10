@@ -17,6 +17,7 @@ namespace Tamagotchi.Web.Models
         Task<bool> PlayAsync(int id);
 
         Task<CreateContract> AddAsync(string name);
+        Task<bool> RemoveAsync(int id);
 
         Task<bool> HasDataAsync();
 

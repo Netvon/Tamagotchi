@@ -3,11 +3,6 @@
 @{
     ViewBag.Title = Html.ValueFor(model => model.Name).ToString();
 
-    if (Model.IsInCoolDown)
-    {
-        ViewBag.Date = Model.CoolDownUntilUtc;
-    }
-
     if (Model.IsInCoolDown || Model.HasDied)
     {
         ViewBag.ButtonState = "disabled";
@@ -83,11 +78,12 @@
                             @if (Model.HasDied)
                             {
                                 <dt>
-                                    Died On
+                                    Pronounced dead on
                                 </dt>
 
                                 <dd>
-                                    @(Model.DiedOnUtc?.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))
+                                    <p>@(Model.DiedOnUtc?.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))</p>
+                                    <p>@Html.ActionLink("Delete", "Delete", "Tamagotchi", new { id = Model.ID }, new { @class = "btn btn-default", role = "button" })</p>
                                 </dd>
                             }
                         </dl>
@@ -100,7 +96,7 @@
         </div>
 
         @if (!Model.HasDied)
-        {
+                                        {
             <div class="row">
                 <div class="col-md-4">
                     <div class="panel panel-default">

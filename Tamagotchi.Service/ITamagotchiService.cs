@@ -51,7 +51,10 @@ namespace Tamagotchi.Service
         CreateContract AddTamagotchi(string name);
 
         [OperationContract]
-        bool RemoveTamagotchi(string name);
+        bool RemoveTamagotchiByName(string name);
+
+        [OperationContract]
+        bool RemoveTamagotchiById(int id);
 
         [OperationContract]
         bool ValidId(int id);

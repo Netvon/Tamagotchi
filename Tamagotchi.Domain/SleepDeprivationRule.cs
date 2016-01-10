@@ -6,12 +6,11 @@ namespace Tamagotchi.Domain
     {
         const int SleepThreshold = 100;
 
-        public SleepDeprivationRule() 
+        public SleepDeprivationRule()
             : base("Sleep Deprivation Rule",
                   $"If sleep is equal to {SleepThreshold} points the Tamagotchi will die",
                   order: 7)
-        {
-        }
+        { }
 
         public override bool Execute(Tamagotchi tama, DateTime now)
         {

@@ -8,10 +8,10 @@ namespace Tamagotchi.Domain
         static readonly TimeSpan oneHour = new TimeSpan(1, 0, 0);
 
         public HungerRule()
-            : base("Hunger Rule", 
-                  $"Every hour hungriness rises by {DeltaHunger} points" + 
-                  ", expect for when the Tamagotchi has the munchies "+
-                  $"then it increases by {DeltaHunger*2} points",
+            : base("Hunger Rule",
+                  $"Every hour hungriness rises by {DeltaHunger} points" +
+                  ", expect for when the Tamagotchi has the munchies " +
+                  $"then it increases by {DeltaHunger * 2} points",
                   order: 3)
         { }
 

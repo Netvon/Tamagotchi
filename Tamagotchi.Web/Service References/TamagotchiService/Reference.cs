@@ -518,11 +518,17 @@ namespace Tamagotchi.Web.TamagotchiService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/AddTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/AddTamagotchiResponse")]
         System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.CreateContract> AddTamagotchiAsync(string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiResponse")]
-        bool RemoveTamagotchi(string name);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByNameResponse")]
+        bool RemoveTamagotchiByName(string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiResponse")]
-        System.Threading.Tasks.Task<bool> RemoveTamagotchiAsync(string name);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByNameResponse")]
+        System.Threading.Tasks.Task<bool> RemoveTamagotchiByNameAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByIdResponse")]
+        bool RemoveTamagotchiById(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByIdResponse")]
+        System.Threading.Tasks.Task<bool> RemoveTamagotchiByIdAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ValidId", ReplyAction="http://tempuri.org/ITamagotchiService/ValidIdResponse")]
         bool ValidId(int id);
@@ -704,12 +710,20 @@ namespace Tamagotchi.Web.TamagotchiService {
             return base.Channel.AddTamagotchiAsync(name);
         }
         
-        public bool RemoveTamagotchi(string name) {
-            return base.Channel.RemoveTamagotchi(name);
+        public bool RemoveTamagotchiByName(string name) {
+            return base.Channel.RemoveTamagotchiByName(name);
         }
         
-        public System.Threading.Tasks.Task<bool> RemoveTamagotchiAsync(string name) {
-            return base.Channel.RemoveTamagotchiAsync(name);
+        public System.Threading.Tasks.Task<bool> RemoveTamagotchiByNameAsync(string name) {
+            return base.Channel.RemoveTamagotchiByNameAsync(name);
+        }
+        
+        public bool RemoveTamagotchiById(int id) {
+            return base.Channel.RemoveTamagotchiById(id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RemoveTamagotchiByIdAsync(int id) {
+            return base.Channel.RemoveTamagotchiByIdAsync(id);
         }
         
         public bool ValidId(int id) {

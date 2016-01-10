@@ -18,7 +18,7 @@ namespace Tamagotchi.Service
 
         public TamagotchiService()
         {
-            IKernel kernel = new StandardKernel(new TamagotchiModule());
+            var kernel = new StandardKernel(new TamagotchiModule());
             repo = kernel.Get<ITamagotchiRepository>();
         }
 
@@ -134,9 +134,14 @@ namespace Tamagotchi.Service
             return false;
         }
 
-        public bool RemoveTamagotchi(string name)
+        public bool RemoveTamagotchiByName(string name)
         {
             return repo.Remove(name);
+        }
+
+        public bool RemoveTamagotchiById(int id)
+        {
+            return repo.Remove(id);
         }
 
         public bool Sleep(string name)

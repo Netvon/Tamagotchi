@@ -14,7 +14,7 @@ namespace Tamagotchi.Service.Model
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            this._context = context;
+            _context = context;
         }
 
         public CreatedArguments Add(string name)
@@ -80,10 +80,27 @@ namespace Tamagotchi.Service.Model
 
         public bool Remove(string name)
         {
-            if (string.IsNullOrWhiteSpace(name) || !_context.Tamagotchis.Any(t => t.Name == name))
+            if (string.IsNullOrWhiteSpace(name))
                 return false;
 
-            var tama = _context.Tamagotchis.First(t => t.Name == name);
+            var tama = _context.Tamagotchis.FirstOrDefault(t => t.Name == name);
+
+            if (tama == null)
+                return false;
+
+            _context.Tamagotchis.Remove(tama);
+            return SaveChanges();
+        }
+
+        public bool Remove(int id)
+        {
+            if (id <= 0)
+                return false;
+
+            var tama = _context.Tamagotchis.FirstOrDefault(t => t.TamagotchiID == id);
+
+            if (tama == null)
+                return false;
 
             _context.Tamagotchis.Remove(tama);
             return SaveChanges();
@@ -96,7 +113,7 @@ namespace Tamagotchi.Service.Model
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
