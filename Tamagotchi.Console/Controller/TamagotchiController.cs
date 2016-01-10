@@ -35,7 +35,7 @@ namespace Tamagotchi.Console.Controller
         string NewLine => System.Console.Out.NewLine;
 
         public void Start()
-        { 
+        {
             while (true)
             {
                 System.Console.Clear();
@@ -111,7 +111,7 @@ namespace Tamagotchi.Console.Controller
                 var all = _repo.GetAll();
 
                 foreach (var item in all)
-                    WriteLine($" -> [Name: {item.Name}] [Status: {item.Status}]");
+                    WriteLine($"{item.ID}: [Name: {item.Name}] [Status: {item.Status}]");
 
                 WriteLine();
 
@@ -120,7 +120,7 @@ namespace Tamagotchi.Console.Controller
                 if (input == "quit" || input == "back")
                     break;
 
-                if(input.StartsWith("@", StringComparison.Ordinal))
+                if (input.StartsWith("@", StringComparison.Ordinal))
                     input = input.Substring(1);
 
                 if (all.Any(t => t.Name.ToLower() == input))
@@ -246,7 +246,7 @@ namespace Tamagotchi.Console.Controller
 
         string StartAddView()
         {
-            while(true)
+            while (true)
             {
                 System.Console.Clear();
                 WriteHeader();
@@ -287,7 +287,7 @@ namespace Tamagotchi.Console.Controller
                 rules = tama.Rules;
             };
 
-            while(true)
+            while (true)
             {
                 var rule = current.Invoke();
 
@@ -300,7 +300,7 @@ namespace Tamagotchi.Console.Controller
                 WriteLine("Type [back] to go back to the start.");
                 WriteLine("Type [next] to go to the next rule");
 
-                if(rule.IsActive)
+                if (rule.IsActive)
                     WriteLine("Type [off] to deactivate the rule");
                 else
                     WriteLine("Type [on] to activate the rule");
@@ -355,7 +355,8 @@ namespace Tamagotchi.Console.Controller
         void WriteTamagotchiStatus(TamagotchiContract tama)
         {
             WriteLine($"Viewing Tamagotchi: {tama.Name} [Status: {tama.Status}]");
-            WriteLine($"[Bordedom: {tama.Boredom}] [Health: {tama.Health}] [Hunger: {tama.Hungriness}] [Sleep: {tama.Sleepiness}]");
+            if (!tama.HasDied)
+                WriteLine($"[Bordedom: {tama.Boredom}] [Health: {tama.Health}] [Hunger: {tama.Hungriness}] [Sleep: {tama.Sleepiness}]");
         }
 
         void WriteLine(string line = "", ConsoleColor color = ConsoleColor.Gray, ConsoleColor background = ConsoleColor.Black)

@@ -66,10 +66,17 @@
     <ManifestKeyFile>Tamagotchi.Console_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -103,6 +110,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Service References\TamagotchiService\Tamagotchi.Console.TamagotchiService.CreateContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -119,7 +127,6 @@
     <None Include="Service References\TamagotchiService\TamagotchiService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Tamagotchi.Console_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
