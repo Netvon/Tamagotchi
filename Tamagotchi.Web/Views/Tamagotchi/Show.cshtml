@@ -23,7 +23,7 @@
 }
 
 @{
-    Html.RenderPartial("PageHeader");
+    Html.RenderPartial("_PageHeader");
 }
 
 <section class="overview">
@@ -133,17 +133,11 @@
                                 Hug
                             </a>
 
-                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Workout", "Tamagotchi", new { id = Model.ID })">
+                            <a class="@($"list-group-item {ViewBag.ButtonState} btn-lg")" href="@Url.Action("Workout", "Tamagotchi", new { id = Model.ID })" role="button">
                                 <span class="badge"><i class="fa fa-clock-o"></i> 1m</span>
                                 <span class="badge">Health <i class="fa fa-arrow-down"></i> 5</span>
                                 Workout
                             </a>
-
-                            @*@Html.ActionLink("Eat", "Eat", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
-                                @Html.ActionLink("Sleep", "Sleep", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
-                                @Html.ActionLink("Play", "Play", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
-                                @Html.ActionLink("Hug", "Hug", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })
-                                @Html.ActionLink("Workout", "Workout", "Tamagotchi", new { id = Model.ID }, new { @class = $"list-group-item {ViewBag.ButtonState}", role = "button" })*@
                         </div>
                     </div>
                 </div>

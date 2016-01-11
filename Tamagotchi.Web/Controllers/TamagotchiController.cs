@@ -1,11 +1,8 @@
-﻿using Ninject;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using Ninject;
 using Tamagotchi.Web.Models;
 
 namespace Tamagotchi.Web.Controllers
@@ -103,7 +100,7 @@ namespace Tamagotchi.Web.Controllers
                 await GetRepo().EatAsync(id);
 
                 return RedirectToAction("Show", "Tamagotchi", new { id });
-            }
+            }          
 
             return RedirectToAction("Error", "Tamagotchi");
         }
@@ -206,14 +203,14 @@ namespace Tamagotchi.Web.Controllers
         public async Task<ActionResult> Create(string name)
         {
             if(string.IsNullOrWhiteSpace(name))
-                return CreateError();
+                return RedirectToAction("CreateError", controllerName: "Tamagotchi");
 
             var createContract = await GetRepo().AddAsync(name);
 
             if (createContract.WasCreated)
                 return RedirectToAction("Show", "Tamagotchi", new { id = createContract.CreatedId });
             else
-                return CreateError();
+                return RedirectToAction("CreateError", controllerName: "Tamagotchi");
         }
 
         [Route("~/create/error")]

@@ -5,7 +5,7 @@
 }
 
 @{
-    Html.RenderPartial("PageHeader");
+    Html.RenderPartial("_PageHeader");
 }
 
 <section class="overview">
@@ -22,15 +22,26 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <p>Some text explaining what these are.</p>
+                <p>Click on a Tamagotchi to view it.</p>
             </div>
 
             <div class="list-group">
                 @foreach (var item in Model.Tamagotchis)
                 {
                     <a class="list-group-item" href="@Url.Action("Show", "Tamagotchi", new { id = item.ID })">
-                        <span class="badge">@(item.Status)</span>
-                        <strong>@(item.Name)</strong>
+                        
+                        <div class="media" style="margin-top: 0">
+                            <div class="media-left">
+                                <img src="@Url.Content($"~/Content/Images/{item.Status.ToLower()}_s.png")" />
+                            </div>
+                            <div class="media-body media-middle ">
+                                <strong>@(item.Name)</strong>
+                            </div> 
+                            <div class="media-right media-middle">
+                                <span class="badge">@(item.Status)</span>
+                            </div>                      
+                        </div>
+                        
                     </a>
                 }
             </div>

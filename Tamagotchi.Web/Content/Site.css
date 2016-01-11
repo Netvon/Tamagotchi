@@ -100,8 +100,10 @@ textarea {
     color: white;
 }
 
-.hatch:hover{
+.hatch:hover,
+.hatch:active{
     text-decoration: none;
+    color: white;
 }
 
 .overview{

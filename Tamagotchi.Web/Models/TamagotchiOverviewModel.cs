@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Tamagotchi.Web.TamagotchiService;
 
 namespace Tamagotchi.Web.Models
@@ -22,8 +21,8 @@ namespace Tamagotchi.Web.Models
         public int NextPage => Math.Min(Page + 1, MaxPage);
         public int PrevPage => Math.Max(Page - 1, 0);
 
-        public bool HasPrevPage => PrevPage != Page;
-        public bool HasNextPage => NextPage != Page;
+        public bool HasPrevPage => PrevPage >= 0 && PrevPage != Page;
+        public bool HasNextPage => NextPage <= (MaxPage - 1);
 
         public IEnumerable<int> Pages
         {
@@ -31,7 +30,7 @@ namespace Tamagotchi.Web.Models
             {
                 var @out = Enumerable.Range(1, MaxPage);
 
-                if(@out.Count() > 10)
+                if (@out.Count() > 10)
                 {
                     var adjusted = @out.Skip(Page);
 

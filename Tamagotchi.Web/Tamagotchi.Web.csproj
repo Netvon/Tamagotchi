@@ -148,11 +148,17 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\boredom.png" />
+    <Content Include="Content\Images\boredom_s.png" />
     <Content Include="Content\Images\dead.png" />
+    <Content Include="Content\Images\dead_s.png" />
     <Content Include="Content\Images\health.png" />
+    <Content Include="Content\Images\health_s.png" />
     <Content Include="Content\Images\hunger.png" />
+    <Content Include="Content\Images\hunger_s.png" />
     <Content Include="Content\Images\neutral.png" />
+    <Content Include="Content\Images\neutral_s.png" />
     <Content Include="Content\Images\sleep.png" />
+    <Content Include="Content\Images\sleep_s.png" />
     <Content Include="Content\stylish-portfolio.css" />
     <Content Include="favicon.ico" />
     <Content Include="font-awesome\css\font-awesome.css" />
@@ -261,7 +267,7 @@
     </None>
     <Content Include="Views\Tamagotchi\Show.cshtml" />
     <Content Include="Views\Tamagotchi\Index.cshtml" />
-    <Content Include="Views\Shared\PageHeader.cshtml" />
+    <Content Include="Views\Shared\_PageHeader.cshtml" />
     <Content Include="Views\Tamagotchi\Error.cshtml" />
     <Content Include="Views\Tamagotchi\CreateError.cshtml" />
     <Content Include="Views\Tamagotchi\DeleteError.cshtml" />
