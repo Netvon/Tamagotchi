@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tamagotchi.Console.Model;
 using Tamagotchi.Console.TamagotchiService;
@@ -48,8 +49,7 @@ namespace Tamagotchi.Console.Controller
 
                 if (!_repo.HasData())
                 {
-                    WriteLine("A connection error occured", ConsoleColor.Red);
-                    AskForInput("Press any key to continue");
+                    ShowConnectionError();
                     return;
                 }
 
@@ -84,6 +84,13 @@ namespace Tamagotchi.Console.Controller
             }
         }
 
+        void ShowConnectionError()
+        {
+            WriteLine("A connection error occured.", ConsoleColor.Red);
+            AskForInput("Please restart the application and try again later.");
+            Environment.Exit(0);
+        }
+
         string AskForInput(string prompt = "> ")
         {
             Write(prompt);
@@ -115,7 +122,13 @@ namespace Tamagotchi.Console.Controller
 
                 WriteLine();
 
-                var all = _repo.GetAll().AsEnumerable();
+                IEnumerable<TamagotchiContract> all = _repo.GetAll().AsEnumerable();
+                try
+                {
+                    all = _repo.GetAll().AsEnumerable();
+                }
+                catch (Exception) { ShowConnectionError(); }
+
                 all_count = all.Count();
 
                 if (all_count > 10)
@@ -229,6 +242,9 @@ namespace Tamagotchi.Console.Controller
 
                 WriteLine();
 
+                try { _repo.HasData(); }
+                catch (Exception) { ShowConnectionError(); }
+
                 string input = AskForInput();
 
                 if (input == "quit" || input == "back")
@@ -242,37 +258,43 @@ namespace Tamagotchi.Console.Controller
 
                     case "refresh":
                     case "r":
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "eat":
                         if (!_repo.Eat(tama.Name))
                             AskForInput("Action not available, press any button to continue");
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "sleep":
                         if (!_repo.Sleep(tama.Name))
                             AskForInput("Action not available, press any button to continue");
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "play":
                         if (!_repo.Play(tama.Name))
                             AskForInput("Action not available, press any button to continue");
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "workout":
                         if (!_repo.Workout(tama.Name))
                             AskForInput("Action not available, press any button to continue");
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "hug":
                         if (!_repo.Hug(tama.Name))
                             AskForInput("Action not available, press any button to continue");
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         break;
 
                     case "rule":
@@ -281,7 +303,8 @@ namespace Tamagotchi.Console.Controller
                         if (output == "quit")
                             return "quit";
 
-                        tama = _repo.Get(tama.Name);
+                        try { tama = _repo.Get(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
 
                         break;
 
@@ -295,13 +318,16 @@ namespace Tamagotchi.Console.Controller
                             break;
                         }
 
-                        _repo.Remove(tama.Name);
+                        try { _repo.Remove(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
+                        
                         return "back";
 
                     case "delete -g":
                     case "remove -g":
                     case "d -g":
-                        _repo.Remove(tama.Name);
+                        try { _repo.Remove(tama.Name); }
+                        catch (Exception) { ShowConnectionError(); }
                         return "back";
 
                     default:
@@ -325,6 +351,9 @@ namespace Tamagotchi.Console.Controller
                 WriteLine("Type a name for the new tamagotchi");
 
                 WriteLine();
+
+                try { _repo.HasData(); }
+                catch (Exception) { ShowConnectionError(); }
 
                 var input = AskForInput();
 
@@ -388,6 +417,9 @@ namespace Tamagotchi.Console.Controller
 
                 WriteLine($"Discription:{NewLine}[{rule.Discription}]");
                 WriteLine();
+
+                try { _repo.HasData(); }
+                catch (Exception) { ShowConnectionError(); }
 
                 var input = AskForInput();
 
