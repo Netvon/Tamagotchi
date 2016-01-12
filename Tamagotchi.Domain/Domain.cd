@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Tamagotchi.Domain.AthleticRule" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AthleticRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.BordedomRule" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>BordedomRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.CrazinessRule" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CrazinessRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.FatigueRule" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAQACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FatigueRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.HungerRule" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>HungerRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.IsolationRule" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAABAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IsolationRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.MuchiesRule" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MuchiesRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.Rule">
+    <Position X="3" Y="2.75" Width="3.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEABAAAAABAAAQAAAAAAAAQAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Rule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.SleepDeprivationRule" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SleepDeprivationRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.StarvationRule" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StarvationRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tamagotchi.Domain.Tamagotchi" Collapsed="true">
+    <Position X="4" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="TamagotchiRules" Type="Tamagotchi.Domain.TamagotchiRule" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="6.562" />
+        <Point X="5.875" Y="6.562" />
+        <Point X="5.875" Y="5.562" />
+        <Point X="5.5" Y="5.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEkCTAANAQsAAAgAIEEAAAQQACUIIAUCBCABAEAAIAE=</HashCode>
+      <FileName>Tamagotchi.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TamagotchiRules" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tamagotchi.Domain.TamagotchiRule" Collapsed="true">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <AssociationLine Name="Tamagotchi" Type="Tamagotchi.Domain.Tamagotchi" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="5.531" />
+        <Point X="3.625" Y="5.531" />
+        <Point X="3.625" Y="6.562" />
+        <Point X="4" Y="6.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAEAAIAAAEAAAAAAAAAQAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>TamagotchiRule.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Rule" />
+      <Property Name="Tamagotchi" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

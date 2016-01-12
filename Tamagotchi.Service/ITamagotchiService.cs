@@ -11,41 +11,41 @@ namespace Tamagotchi.Service
     [ServiceContract]
     interface ITamagotchiService
     {
-        [OperationContract(Name = "SleepByName")]
-        bool Sleep(string name);
+        [OperationContract]
+        bool SleepByName(string name);
 
-        [OperationContract(Name = "SleepById")]
-        bool Sleep(int id);
+        [OperationContract]
+        bool SleepById(int id);
 
-        [OperationContract(Name = "EatByName")]
-        bool Eat(string name);
+        [OperationContract]
+        bool EatByName(string name);
 
-        [OperationContract(Name = "EatById")]
-        bool Eat(int id);
+        [OperationContract]
+        bool EatById(int id);
 
-        [OperationContract(Name = "PlayByName")]
-        bool Play(string name);
+        [OperationContract]
+        bool PlayByName(string name);
 
-        [OperationContract(Name = "PlayById")]
-        bool Play(int id);
+        [OperationContract]
+        bool PlayById(int id);
 
-        [OperationContract(Name = "WorkoutByName")]
-        bool Workout(string name);
+        [OperationContract]
+        bool WorkoutByName(string name);
 
-        [OperationContract(Name = "WorkoutById")]
-        bool Workout(int id);
+        [OperationContract]
+        bool WorkoutById(int id);
 
-        [OperationContract(Name = "HugByName")]
-        bool Hug(string name);
+        [OperationContract]
+        bool HugByName(string name);
 
-        [OperationContract(Name = "HugById")]
-        bool Hug(int id);
+        [OperationContract]
+        bool HugById(int id);
 
-        [OperationContract(Name = "GetTamagotchiByName")]
-        TamagotchiContract GetTamagotchi(string name);
+        [OperationContract]
+        TamagotchiContract GetTamagotchiByName(string name);
 
-        [OperationContract(Name = "GetTamagotchiById")]
-        TamagotchiContract GetTamagotchi(int id);
+        [OperationContract]
+        TamagotchiContract GetTamagotchiById(int id);
 
         [OperationContract]
         CreateContract AddTamagotchi(string name);
@@ -57,27 +57,33 @@ namespace Tamagotchi.Service
         bool RemoveTamagotchiById(int id);
 
         [OperationContract]
-        bool ValidId(int id);
+        bool IsKnownId(int id);
 
         [OperationContract]
-        bool ValidName(string name);
+        bool IsKnownName(string name);
 
         [OperationContract]
-        IEnumerable<TamagotchiContract> GetAllTamagotchi();
+        IEnumerable<TamagotchiContract> GetAllTamagotchi(int start);
 
-        [OperationContract(Name = "ActivateRuleForTamagotchiByName")]
-        bool ActivateRuleForTamagotchi(string tamagotchiName, string ruleName);
+        [OperationContract]
+        bool ActivateRuleForTamagotchiByName(string tamagotchiName, string ruleName);
 
-        [OperationContract(Name = "ActivateRuleForTamagotchiById")]
-        bool ActivateRuleForTamagotchi(int tamagotchiId, string ruleName);
+        [OperationContract]
+        bool ActivateRuleForTamagotchiById(int tamagotchiId, string ruleName);
 
-        [OperationContract(Name = "DactivateRuleForTamagotchiByName")]
-        bool DectivateRuleForTamagotchi(string tamagotchiName, string ruleName);
+        [OperationContract]
+        bool DeactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName);
 
-        [OperationContract(Name = "DactivateRuleForTamagotchiById")]
-        bool DectivateRuleForTamagotchi(int tamagotchiId, string ruleName);
+        [OperationContract]
+        bool DeactivateRuleForTamagotchiById(int tamagotchiId, string ruleName);
 
         [OperationContract]
         bool IsRunning();
+
+        [OperationContract]
+        int TamagotchiCount();
+
+        [OperationContract]
+        int TamagotchiPerPage();
     }
 }

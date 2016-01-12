@@ -289,6 +289,12 @@ namespace Tamagotchi.Domain
 
             return false;
         }
+
+        public override string ToString()
+        {
+            return $"[Name:{Name}][Status:{Status}]";
+        }
+
         #endregion
     }
 }

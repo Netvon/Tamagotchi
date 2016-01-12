@@ -8,7 +8,7 @@ namespace Tamagotchi.Web.Models
     {
         Task<TamagotchiContract> GetAsync(string name);
         Task<TamagotchiContract> GetAsync(int id);
-        Task<TamagotchiContract[]> GetAllAsync();
+        Task<TamagotchiContract[]> GetAllAsync(int start);
 
         Task<bool> SleepAsync(int id);
         Task<bool> EatAsync(int id);
@@ -18,13 +18,14 @@ namespace Tamagotchi.Web.Models
 
         Task<CreateContract> AddAsync(string name);
         Task<bool> RemoveAsync(int id);
-
+        Task<int> TamagotchiPerPageAsync();
+        Task<int> TamagotchiCountAsync();
         Task<bool> HasDataAsync();
 
         string WhereAmI();
 
-        Task<bool> IsValidIdAsync(int id);
-        Task<bool> IsValidNameAsync(string name);
+        Task<bool> IsKnownIdAsync(int id);
+        Task<bool> IsKnownNameAsync(string name);
 
         Task<bool> SetRuleForTamagotchiAsync(int tamagotchiId, string ruleName, bool setActive);
     }

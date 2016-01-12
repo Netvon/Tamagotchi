@@ -22,9 +22,9 @@ namespace Tamagotchi.Console.Model
             return service.GetTamagotchiById(id);
         }
 
-        public TamagotchiContract[] GetAll()
+        public TamagotchiContract[] GetAll(int start)
         {
-            return service.GetAllTamagotchi();
+            return service.GetAllTamagotchi(start);
         }
 
         public bool Sleep(string name)
@@ -84,7 +84,17 @@ namespace Tamagotchi.Console.Model
             if (setActive)
                 return service.ActivateRuleForTamagotchiByName(name, ruleName);
 
-            return service.DactivateRuleForTamagotchiByName(name, ruleName);
+            return service.DeactivateRuleForTamagotchiByName(name, ruleName);
+        }
+
+        public int TamagotchiPerPage()
+        {
+            return service.TamagotchiPerPage();
+        }
+
+        public int TamagotchiCount()
+        {
+            return service.TamagotchiCount();
         }
     }
 }

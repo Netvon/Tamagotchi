@@ -46,57 +46,59 @@
             </div>
             <div class="panel-body">
                 <div class="media">
-                    <div class="media-body">
-                        <dl>
-
-                            @if (Model.IsInCoolDown)
-                            {
+                    <div class="media-body media-middle">
+                        @if (Model.IsInCoolDown)
+                        {
+                            <dl>
                                 <dt>
                                     Cooldown left
                                 </dt>
                                 <dd>
                                     <span id="clock" data-countdownto="@(countDownUntilText)"></span>
                                 </dd>
-                            }
-
-                            <dt>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </dt>
-
-                            <dd>
-                                @Html.DisplayFor(model => model.Status)
-                            </dd>
-
-                            <dt>
+                            </dl>
+                        }
+                        <dl style="margin-bottom: 0">
+                            <dt class="text-muted">
                                 Created On
                             </dt>
 
-                            <dd>
+                            <dd class="small text-muted">
                                 @(Model.CreatedOnUtc.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))
                             </dd>
 
                             @if (Model.HasDied)
                             {
-                                <dt>
-                                    Pronounced dead on
+                                <dt class="text-muted">
+                                    Pronounced Dead On
                                 </dt>
 
-                                <dd>
-                                    <p>@(Model.DiedOnUtc?.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))</p>
+                                <dd class="small text-muted">
+                                    @if (Model.DiedOnUtc != null)
+                                    {
+                                        <p>@(Model.DiedOnUtc?.AddMinutes(-1 * offset).ToString("f", new System.Globalization.CultureInfo("en-US")))</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Unknown</p>
+                                    }
                                     <p>@Html.ActionLink("Delete", "Delete", "Tamagotchi", new { id = Model.ID }, new { @class = "btn btn-default", role = "button" })</p>
                                 </dd>
                             }
                         </dl>
                     </div>
                     <div class="media-right media-middle">
-                        <img src="@Url.Content($"~/Content/Images/{Model.Status.ToLower()}.png")" />
+                        <div class="well well-sm" style="margin-bottom: 0">
+                            <img src="@Url.Content($"~/Content/Images/{Model.Status.ToLower()}.png")" />
+                            <p class="text-center" style="margin-bottom:0; margin-top:10px;">@Html.DisplayFor(model => model.Status)</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         @if (!Model.HasDied)
-                                        {
+        {
             <div class="row">
                 <div class="col-md-4">
                     <div class="panel panel-default">

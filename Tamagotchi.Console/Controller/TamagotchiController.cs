@@ -72,6 +72,60 @@ namespace Tamagotchi.Console.Controller
                         WriteLine(_repo.WhereAmI());
                         AskForInput("Press any button to continue");
                         break;
+                    case "clean":
+                    case "c":
+                        WriteLine("Removing all dead Tamagotchis, this might take some time.", ConsoleColor.Red);
+                        WriteLine();
+                        for (int i = 0; i < _repo.TamagotchiCount(); i += _repo.TamagotchiPerPage())
+                        {
+                            var all = _repo.GetAll(i);
+                            if (all.Count() <= 0)
+                                break;
+
+                            foreach (var item in all.Where(t => t.HasDied))
+                            {
+                                Write(".", ConsoleColor.Red);
+                                _repo.Remove(item.Name);
+                            }
+                        }
+                        break;
+                    case "purge":
+                    case "p":
+                        WriteLine("Removing all Tamagotchis, this might take some time.", ConsoleColor.Red);
+                        WriteLine();
+                        for (int i = 0; i < int.MaxValue; i += _repo.TamagotchiPerPage())
+                        {
+                            var all = _repo.GetAll(i);
+                            if (all.Count() <= 0)
+                                break;
+
+                            foreach (var item in all)
+                            {
+                                Write(".", ConsoleColor.Red);
+                                _repo.Remove(item.Name);
+                            }
+                        }
+                        break;
+
+                    case "bulk":
+                    case "b":
+                        WriteLine("Bulk adding Tamagotchis", ConsoleColor.Red);
+                        int amount = 0;
+                        int.TryParse(AskForInput("amount > "), out amount);
+                        if (amount <= 0)
+                            break;
+
+                        var prefix = AskForInput("prefix > ");
+                        if (string.IsNullOrWhiteSpace(prefix))
+                            break;
+
+                        for (int i = 0; i < amount; i++)
+                        {
+                            Write(".", ConsoleColor.Red);
+                            _repo.Add($"{prefix} {i}");
+                        }
+
+                        break;
                     default:
                         WriteLine("Command not recognized.", ConsoleColor.Red);
                         AskForInput("Press any button to continue");
@@ -104,8 +158,8 @@ namespace Tamagotchi.Console.Controller
             string input = "";
 
             int page = 0;
-            int per_page = 10;
-            int all_count = 0;
+            int per_page = _repo.TamagotchiPerPage();
+            int all_count = _repo.TamagotchiCount();
             int page_num = 0;
 
             while (true)
@@ -122,14 +176,10 @@ namespace Tamagotchi.Console.Controller
 
                 WriteLine();
 
-                IEnumerable<TamagotchiContract> all = _repo.GetAll().AsEnumerable();
-                try
-                {
-                    all = _repo.GetAll().AsEnumerable();
-                }
-                catch (Exception) { ShowConnectionError(); }
+                per_page = _repo.TamagotchiPerPage();
+                all_count = _repo.TamagotchiCount();
 
-                all_count = all.Count();
+                IEnumerable<TamagotchiContract> all = _repo.GetAll(per_page * page).AsEnumerable();
 
                 if (all_count > 10)
                 {
@@ -137,8 +187,6 @@ namespace Tamagotchi.Console.Controller
                     WriteLine($"Viewing page: {page + 1}/{page_num} - Total: {all_count}");
                     WriteLine("Type [next]/[prev] to go to the next/previous page.");
                     WriteLine();
-
-                    all = all.Skip(per_page * page).Take(per_page);
                 }
 
                 foreach (var item in all)
@@ -162,7 +210,7 @@ namespace Tamagotchi.Console.Controller
                 {
                     page--;
                     if (page < 0)
-                        page = page_num -1;
+                        page = page_num - 1;
                     continue;
                 }
 
@@ -188,7 +236,7 @@ namespace Tamagotchi.Console.Controller
                     break;
                 }
 
-                if(tama == null)
+                if (tama == null)
                 {
                     WriteLine("Tamagotchi not found.", ConsoleColor.Red);
                     AskForInput("Press any button to continue");
@@ -320,7 +368,7 @@ namespace Tamagotchi.Console.Controller
 
                         try { _repo.Remove(tama.Name); }
                         catch (Exception) { ShowConnectionError(); }
-                        
+
                         return "back";
 
                     case "delete -g":

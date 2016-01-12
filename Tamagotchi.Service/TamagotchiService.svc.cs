@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 using Tamagotchi.Service.Model;
 
 namespace Tamagotchi.Service
@@ -14,6 +10,7 @@ namespace Tamagotchi.Service
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class TamagotchiService : ITamagotchiService
     {
+        private const int TamgotchiPerPage = 10;
         readonly ITamagotchiRepository repo;
 
         public TamagotchiService()
@@ -22,7 +19,7 @@ namespace Tamagotchi.Service
             repo = kernel.Get<ITamagotchiRepository>();
         }
 
-        public bool ActivateRuleForTamagotchi(string tamagotchiName, string ruleName)
+        public bool ActivateRuleForTamagotchiByName(string tamagotchiName, string ruleName)
         {
             return SetIsActiveForRule(repo.Get(tamagotchiName), ruleName, true);
         }
@@ -51,17 +48,17 @@ namespace Tamagotchi.Service
             return new CreateContract(repo.Add(name));
         }
 
-        public bool DectivateRuleForTamagotchi(string tamagotchiName, string ruleName)
+        public bool DeactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName)
         {
             return SetIsActiveForRule(repo.Get(tamagotchiName), ruleName, false);
         }
 
-        public bool Eat(string name)
+        public bool EatByName(string name)
         {
             return Eat(repo.Get(name));
         }
 
-        public bool Eat(int id)
+        public bool EatById(int id)
         {
             return Eat(repo.Get(id));
         }
@@ -77,12 +74,17 @@ namespace Tamagotchi.Service
             return false;
         }
 
-        public IEnumerable<TamagotchiContract> GetAllTamagotchi()
+        public IEnumerable<TamagotchiContract> GetAllTamagotchi(int start)
         {
-            return repo.GetAll().Select(t => new TamagotchiContract(t));
+            return repo.GetAll(start, TamgotchiPerPage).Select(t => new TamagotchiContract(t));
         }
 
-        public TamagotchiContract GetTamagotchi(string name)
+        public int TamagotchiPerPage()
+        {
+            return TamgotchiPerPage;
+        }
+
+        public TamagotchiContract GetTamagotchiByName(string name)
         {
             var tamagotchi = repo.Get(name);
 
@@ -92,12 +94,12 @@ namespace Tamagotchi.Service
             return null;
         }
 
-        public bool Hug(string name)
+        public bool HugByName(string name)
         {
             return Hug(repo.Get(name));
         }
 
-        public bool Hug(int id)
+        public bool HugById(int id)
         {
             return Hug(repo.Get(id));
         }
@@ -113,12 +115,12 @@ namespace Tamagotchi.Service
             return false;
         }
 
-        public bool Play(string name)
+        public bool PlayByName(string name)
         {
             return Play(repo.Get(name));
         }
 
-        public bool Play(int id)
+        public bool PlayById(int id)
         {
             return Play(repo.Get(id));
         }
@@ -144,12 +146,12 @@ namespace Tamagotchi.Service
             return repo.Remove(id);
         }
 
-        public bool Sleep(string name)
+        public bool SleepByName(string name)
         {
             return Sleep(repo.Get(name));
         }
 
-        public bool Sleep(int id)
+        public bool SleepById(int id)
         {
             return Sleep(repo.Get(id));
         }
@@ -165,12 +167,12 @@ namespace Tamagotchi.Service
             return false;
         }
 
-        public bool Workout(string name)
+        public bool WorkoutByName(string name)
         {
             return Workout(repo.Get(name));
         }
 
-        public bool Workout(int id)
+        public bool WorkoutById(int id)
         {
             return Workout(repo.Get(id));
         }
@@ -188,7 +190,7 @@ namespace Tamagotchi.Service
 
         public bool IsRunning() => true;
 
-        public TamagotchiContract GetTamagotchi(int id)
+        public TamagotchiContract GetTamagotchiById(int id)
         {
             var tamagotchi = repo.Get(id);
 
@@ -198,24 +200,29 @@ namespace Tamagotchi.Service
             return null;
         }
 
-        public bool ActivateRuleForTamagotchi(int tamagotchiId, string ruleName)
+        public bool ActivateRuleForTamagotchiById(int tamagotchiId, string ruleName)
         {
             return SetIsActiveForRule(repo.Get(tamagotchiId), ruleName, true);
         }
 
-        public bool DectivateRuleForTamagotchi(int tamagotchiId, string ruleName)
+        public bool DeactivateRuleForTamagotchiById(int tamagotchiId, string ruleName)
         {
             return SetIsActiveForRule(repo.Get(tamagotchiId), ruleName, false);
         }
 
-        public bool ValidId(int id)
+        public bool IsKnownId(int id)
         {
-            return repo.ValidId(id);
+            return repo.IsKnownId(id);
         }
 
-        public bool ValidName(string name)
+        public bool IsKnownName(string name)
         {
-            return repo.ValidName(name);
+            return repo.IsKnownName(name);
+        }
+
+        public int TamagotchiCount()
+        {
+            return repo.TamgotchiCount();
         }
     }
 }

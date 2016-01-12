@@ -86,5 +86,10 @@ namespace Tamagotchi.Service
 
         [DataMember]
         public IEnumerable<RuleContract> Rules { get; set; }
+
+        public override string ToString()
+        {
+            return $"[Name:{Name}][Status:{Status}]";
+        }
     }
 }

@@ -130,8 +130,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConsoleModule.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\WebModule.cs" />
     <Compile Include="Models\ITamagotchiRepository.cs" />
     <Compile Include="Models\TamagotchiOverviewModel.cs" />
     <Compile Include="Models\WCFTamagotchiRepository.cs" />

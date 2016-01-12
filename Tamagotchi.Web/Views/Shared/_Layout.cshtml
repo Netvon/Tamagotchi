@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2C0073">
-    @if(ViewBag.Title != null)
+    @if (ViewBag.Title != null)
     {
         <title>@ViewBag.Title - Tamagotchi</title>
     }
@@ -95,18 +95,22 @@
 
         if ($('#clock').attr('data-countdownto') != undefined) {
 
-            $('#clock').countdown($('#clock').attr('data-countdownto'), function (event) {
+            $('#clock').countdown($('#clock').attr('data-countdownto'))
+                .on('update.countdown', function (event) {
 
-                var format = '%-S second%!S';
+                    var format = '%-S second%!S';
 
-                if (event.offset.minutes > 0)
-                    format = '%-M minute%!M %-S second%!S';
+                    if (event.offset.minutes > 0)
+                        format = '%-M minute%!M %-S second%!S';
 
-                if (event.offset.hours > 0)
-                    format = '%-H hour%!H %-M minute%!M %-S second%!S';
+                    if (event.offset.hours > 0)
+                        format = '%-H hour%!H %-M minute%!M %-S second%!S';
 
-                $(this).html(event.strftime(format));
-            });
+                    $(this).html(event.strftime(format));
+                })
+                .on('finish.countdown', function (event) {
+                    $(this).html(event.strftime('Refresh the page to perform actions'));
+                });
         }
     </script>
 </body>

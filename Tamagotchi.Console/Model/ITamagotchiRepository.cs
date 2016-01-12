@@ -6,7 +6,7 @@ namespace Tamagotchi.Console.Model
     {
         TamagotchiContract Get(string name);
         TamagotchiContract Get(int id);
-        TamagotchiContract[] GetAll();
+        TamagotchiContract[] GetAll(int start);
 
         bool Sleep(string name);
         bool Eat(string name);
@@ -22,5 +22,8 @@ namespace Tamagotchi.Console.Model
         string WhereAmI();
 
         bool SetRule(string name, string ruleName, bool setActive);
+
+        int TamagotchiPerPage();
+        int TamagotchiCount();
     }
 }

@@ -8,6 +8,8 @@ namespace Tamagotchi.Service.Model
     class EntityTamagotchiRepository : ITamagotchiRepository
     {
         readonly MyContext _context;
+        const string IncludeString = nameof(Domain.Tamagotchi.TamagotchiRules) + "." +
+                                     nameof(TamagotchiRule.Rule);
 
         public EntityTamagotchiRepository(MyContext context)
         {
@@ -32,9 +34,10 @@ namespace Tamagotchi.Service.Model
         public Domain.Tamagotchi Get(int id)
         {
             if (id <= 0)
-                throw new ArgumentNullException(nameof(id));
+                return null;
 
-            var tamagotchi = _context.Tamagotchis.Include("TamagotchiRules.Rule").FirstOrDefault(t => t.TamagotchiID == id);
+            var tamagotchi = _context.Tamagotchis.Include(IncludeString)
+                                                 .FirstOrDefault(t => t.TamagotchiID == id);
 
             if (tamagotchi != null)
             {
@@ -48,9 +51,10 @@ namespace Tamagotchi.Service.Model
         public Domain.Tamagotchi Get(string name)
         {
             if (name == null || string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name));
+                return null;
 
-            var tamagotchi = _context.Tamagotchis.Include("TamagotchiRules.Rule").FirstOrDefault(t => t.Name == name);
+            var tamagotchi = _context.Tamagotchis.Include(IncludeString)
+                                                 .FirstOrDefault(t => t.Name == name);
 
             if (tamagotchi != null)
             {
@@ -61,9 +65,11 @@ namespace Tamagotchi.Service.Model
             return tamagotchi;
         }
 
-        public IEnumerable<Domain.Tamagotchi> GetAll()
+        public IEnumerable<Domain.Tamagotchi> GetAll(int start, int amount)
         {
-            var all = _context.Tamagotchis.Include("TamagotchiRules.Rule");
+            var all = _context.Tamagotchis.Include(IncludeString);
+            var allPaged = all.ToList().OrderBy(t => t.HasDied).OrderByDescending(t => t.CreatedOnUtc)
+                              .Skip(start).Take(amount);
 
             var now = DateTime.UtcNow;
 
@@ -75,7 +81,7 @@ namespace Tamagotchi.Service.Model
             if(changes.Any())
                 SaveChanges();
 
-            return all;
+            return allPaged;
         }
 
         public bool Remove(string name)
@@ -119,7 +125,7 @@ namespace Tamagotchi.Service.Model
             }
         }
 
-        public bool ValidId(int id)
+        public bool IsKnownId(int id)
         {
             if (id <= 0)
                 return false;
@@ -127,12 +133,17 @@ namespace Tamagotchi.Service.Model
             return _context.Tamagotchis.Count(t => t.TamagotchiID == id) == 1;
         }
 
-        public bool ValidName(string name)
+        public bool IsKnownName(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrWhiteSpace(name))
                 return false;
 
             return _context.Tamagotchis.Count(t => t.Name == name) == 1;
+        }
+
+        public int TamgotchiCount()
+        {
+            return _context.Tamagotchis.Count();
         }
     }
 }

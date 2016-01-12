@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Ninject;
 using Tamagotchi.Web.Models;
+using Tamagotchi.Web.TamagotchiService;
+using System.ServiceModel;
 
 namespace Tamagotchi.Web.Controllers
 {
@@ -15,12 +17,10 @@ namespace Tamagotchi.Web.Controllers
         [Route("{page?}")]
         public async Task<ActionResult> Index(int page = 0)
         {
-            ITamagotchiRepository repo = GetRepo();
+            ITamagotchiRepository repo = GetRepo();            
 
-            var tamagotchiContract = await repo.GetAllAsync();
-
-            int per_page = 10;
-            int all_count = tamagotchiContract.Count();
+            int per_page = await repo.TamagotchiPerPageAsync();
+            int all_count = await repo.TamagotchiCountAsync();
             int page_num = (int)Math.Ceiling(all_count / (double)per_page);
 
             if (page > page_num)
@@ -29,7 +29,9 @@ namespace Tamagotchi.Web.Controllers
             if (page < 0)
                 page = 0;
 
-            var param = new TamagotchiOverviewModel(tamagotchiContract.Skip(per_page * page).Take(per_page), page, page_num);
+            var tamagotchiContract = await repo.GetAllAsync(per_page * page);
+
+            var param = new TamagotchiOverviewModel(tamagotchiContract, page, page_num);
 
             return View(param);
         }
@@ -76,12 +78,11 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/find")]
         public async Task<ActionResult> DetailsByName(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if(string.IsNullOrWhiteSpace(name))
                 return RedirectToAction("Error", "Tamagotchi");
 
             var repo = GetRepo();
-
-            var tama = await repo.GetAsync(name);
+            var tama = await repo.GetAsync(name);            
 
             if (tama == null)
                 return RedirectToAction("Error", "Tamagotchi");
@@ -92,10 +93,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/eat")]
         public async Task<ActionResult> Eat(int id)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().EatAsync(id);
 
@@ -108,10 +106,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/sleep")]
         public async Task<ActionResult> Sleep(int id)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().SleepAsync(id);
 
@@ -124,10 +119,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/hug")]
         public async Task<ActionResult> Hug(int id)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().HugAsync(id);
 
@@ -140,10 +132,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/workout")]
         public async Task<ActionResult> Workout(int id)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().WorkoutAsync(id);
 
@@ -156,10 +145,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/play")]
         public async Task<ActionResult> Play(int id)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().PlayAsync(id);
 
@@ -172,10 +158,7 @@ namespace Tamagotchi.Web.Controllers
         [Route("~/show/{id}/rule")]
         public async Task<ActionResult> SetRule(int id, string ruleName, bool setActive)
         {
-            if (id <= 0)
-                return RedirectToAction("Error", "Tamagotchi");
-
-            if (await GetRepo().IsValidIdAsync(id))
+            if (await GetRepo().IsKnownIdAsync(id))
             {
                 await GetRepo().SetRuleForTamagotchiAsync(id, ruleName, setActive);
 
@@ -226,7 +209,7 @@ namespace Tamagotchi.Web.Controllers
                 IKernel kernel = new StandardKernel(new WebModule());
                 var repo = kernel.Get<ITamagotchiRepository>();
 
-                Session[nameof(ITamagotchiRepository)] = repo;
+                Session.Add(nameof(ITamagotchiRepository), repo);
 
                 return repo;
             }

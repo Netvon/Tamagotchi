@@ -122,17 +122,17 @@
   <wsdl:message name="ITamagotchiService_RemoveTamagotchiById_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveTamagotchiByIdResponse" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_ValidId_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidId" />
+  <wsdl:message name="ITamagotchiService_IsKnownId_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsKnownId" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_ValidId_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidIdResponse" />
+  <wsdl:message name="ITamagotchiService_IsKnownId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsKnownIdResponse" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_ValidName_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidName" />
+  <wsdl:message name="ITamagotchiService_IsKnownName_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsKnownName" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_ValidName_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidNameResponse" />
+  <wsdl:message name="ITamagotchiService_IsKnownName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsKnownNameResponse" />
   </wsdl:message>
   <wsdl:message name="ITamagotchiService_GetAllTamagotchi_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllTamagotchi" />
@@ -152,23 +152,35 @@
   <wsdl:message name="ITamagotchiService_ActivateRuleForTamagotchiById_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActivateRuleForTamagotchiByIdResponse" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_DactivateRuleForTamagotchiByName_InputMessage">
-    <wsdl:part name="parameters" element="tns:DactivateRuleForTamagotchiByName" />
+  <wsdl:message name="ITamagotchiService_DeactivateRuleForTamagotchiByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateRuleForTamagotchiByName" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_DactivateRuleForTamagotchiByName_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DactivateRuleForTamagotchiByNameResponse" />
+  <wsdl:message name="ITamagotchiService_DeactivateRuleForTamagotchiByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateRuleForTamagotchiByNameResponse" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_DactivateRuleForTamagotchiById_InputMessage">
-    <wsdl:part name="parameters" element="tns:DactivateRuleForTamagotchiById" />
+  <wsdl:message name="ITamagotchiService_DeactivateRuleForTamagotchiById_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateRuleForTamagotchiById" />
   </wsdl:message>
-  <wsdl:message name="ITamagotchiService_DactivateRuleForTamagotchiById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DactivateRuleForTamagotchiByIdResponse" />
+  <wsdl:message name="ITamagotchiService_DeactivateRuleForTamagotchiById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateRuleForTamagotchiByIdResponse" />
   </wsdl:message>
   <wsdl:message name="ITamagotchiService_IsRunning_InputMessage">
     <wsdl:part name="parameters" element="tns:IsRunning" />
   </wsdl:message>
   <wsdl:message name="ITamagotchiService_IsRunning_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsRunningResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_TamagotchiCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:TamagotchiCount" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_TamagotchiCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TamagotchiCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_TamagotchiPerPage_InputMessage">
+    <wsdl:part name="parameters" element="tns:TamagotchiPerPage" />
+  </wsdl:message>
+  <wsdl:message name="ITamagotchiService_TamagotchiPerPage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TamagotchiPerPageResponse" />
   </wsdl:message>
   <wsdl:portType name="ITamagotchiService">
     <wsdl:operation name="SleepByName">
@@ -231,13 +243,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById" message="tns:ITamagotchiService_RemoveTamagotchiById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByIdResponse" message="tns:ITamagotchiService_RemoveTamagotchiById_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidId">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/ValidId" message="tns:ITamagotchiService_ValidId_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/ValidIdResponse" message="tns:ITamagotchiService_ValidId_OutputMessage" />
+    <wsdl:operation name="IsKnownId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/IsKnownId" message="tns:ITamagotchiService_IsKnownId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/IsKnownIdResponse" message="tns:ITamagotchiService_IsKnownId_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidName">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/ValidName" message="tns:ITamagotchiService_ValidName_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/ValidNameResponse" message="tns:ITamagotchiService_ValidName_OutputMessage" />
+    <wsdl:operation name="IsKnownName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/IsKnownName" message="tns:ITamagotchiService_IsKnownName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/IsKnownNameResponse" message="tns:ITamagotchiService_IsKnownName_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetAllTamagotchi">
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/GetAllTamagotchi" message="tns:ITamagotchiService_GetAllTamagotchi_InputMessage" />
@@ -251,17 +263,25 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiById" message="tns:ITamagotchiService_ActivateRuleForTamagotchiById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiByIdResponse" message="tns:ITamagotchiService_ActivateRuleForTamagotchiById_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiByName">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByName" message="tns:ITamagotchiService_DactivateRuleForTamagotchiByName_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByNameResponse" message="tns:ITamagotchiService_DactivateRuleForTamagotchiByName_OutputMessage" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByName" message="tns:ITamagotchiService_DeactivateRuleForTamagotchiByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByNameResponse" message="tns:ITamagotchiService_DeactivateRuleForTamagotchiByName_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiById">
-      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiById" message="tns:ITamagotchiService_DactivateRuleForTamagotchiById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByIdResponse" message="tns:ITamagotchiService_DactivateRuleForTamagotchiById_OutputMessage" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiById" message="tns:ITamagotchiService_DeactivateRuleForTamagotchiById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByIdResponse" message="tns:ITamagotchiService_DeactivateRuleForTamagotchiById_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="IsRunning">
       <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/IsRunning" message="tns:ITamagotchiService_IsRunning_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/IsRunningResponse" message="tns:ITamagotchiService_IsRunning_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/TamagotchiCount" message="tns:ITamagotchiService_TamagotchiCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/TamagotchiCountResponse" message="tns:ITamagotchiService_TamagotchiCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiPerPage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITamagotchiService/TamagotchiPerPage" message="tns:ITamagotchiService_TamagotchiPerPage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITamagotchiService/TamagotchiPerPageResponse" message="tns:ITamagotchiService_TamagotchiPerPage_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ITamagotchiService" type="tns:ITamagotchiService">
@@ -401,8 +421,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidId">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/ValidId" style="document" />
+    <wsdl:operation name="IsKnownId">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsKnownId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -410,8 +430,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidName">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/ValidName" style="document" />
+    <wsdl:operation name="IsKnownName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsKnownName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -446,8 +466,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiByName">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByName" style="document" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiByName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -455,8 +475,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiById">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiById" style="document" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiById">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -466,6 +486,24 @@
     </wsdl:operation>
     <wsdl:operation name="IsRunning">
       <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsRunning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiCount">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/TamagotchiCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiPerPage">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/TamagotchiPerPage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -612,8 +650,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidId">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/ValidId" style="document" />
+    <wsdl:operation name="IsKnownId">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsKnownId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -621,8 +659,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidName">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/ValidName" style="document" />
+    <wsdl:operation name="IsKnownName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsKnownName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -657,8 +695,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiByName">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByName" style="document" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiByName">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -666,8 +704,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DactivateRuleForTamagotchiById">
-      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiById" style="document" />
+    <wsdl:operation name="DeactivateRuleForTamagotchiById">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -677,6 +715,24 @@
     </wsdl:operation>
     <wsdl:operation name="IsRunning">
       <soap:operation soapAction="http://tempuri.org/ITamagotchiService/IsRunning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiCount">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/TamagotchiCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TamagotchiPerPage">
+      <soap:operation soapAction="http://tempuri.org/ITamagotchiService/TamagotchiPerPage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -530,23 +530,23 @@ namespace Tamagotchi.Web.TamagotchiService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/RemoveTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/RemoveTamagotchiByIdResponse")]
         System.Threading.Tasks.Task<bool> RemoveTamagotchiByIdAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ValidId", ReplyAction="http://tempuri.org/ITamagotchiService/ValidIdResponse")]
-        bool ValidId(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsKnownId", ReplyAction="http://tempuri.org/ITamagotchiService/IsKnownIdResponse")]
+        bool IsKnownId(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ValidId", ReplyAction="http://tempuri.org/ITamagotchiService/ValidIdResponse")]
-        System.Threading.Tasks.Task<bool> ValidIdAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsKnownId", ReplyAction="http://tempuri.org/ITamagotchiService/IsKnownIdResponse")]
+        System.Threading.Tasks.Task<bool> IsKnownIdAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ValidName", ReplyAction="http://tempuri.org/ITamagotchiService/ValidNameResponse")]
-        bool ValidName(string name);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsKnownName", ReplyAction="http://tempuri.org/ITamagotchiService/IsKnownNameResponse")]
+        bool IsKnownName(string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ValidName", ReplyAction="http://tempuri.org/ITamagotchiService/ValidNameResponse")]
-        System.Threading.Tasks.Task<bool> ValidNameAsync(string name);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/GetAllTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/GetAllTamagotchiResponse")]
-        Tamagotchi.Web.TamagotchiService.TamagotchiContract[] GetAllTamagotchi();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsKnownName", ReplyAction="http://tempuri.org/ITamagotchiService/IsKnownNameResponse")]
+        System.Threading.Tasks.Task<bool> IsKnownNameAsync(string name);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/GetAllTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/GetAllTamagotchiResponse")]
-        System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.TamagotchiContract[]> GetAllTamagotchiAsync();
+        Tamagotchi.Web.TamagotchiService.TamagotchiContract[] GetAllTamagotchi(int start);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/GetAllTamagotchi", ReplyAction="http://tempuri.org/ITamagotchiService/GetAllTamagotchiResponse")]
+        System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.TamagotchiContract[]> GetAllTamagotchiAsync(int start);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiByNameResponse")]
         bool ActivateRuleForTamagotchiByName(string tamagotchiName, string ruleName);
@@ -560,23 +560,35 @@ namespace Tamagotchi.Web.TamagotchiService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/ActivateRuleForTamagotchiByIdResponse")]
         System.Threading.Tasks.Task<bool> ActivateRuleForTamagotchiByIdAsync(int tamagotchiId, string ruleName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByNameResponse")]
-        bool DactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByNameResponse")]
+        bool DeactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByNameResponse")]
-        System.Threading.Tasks.Task<bool> DactivateRuleForTamagotchiByNameAsync(string tamagotchiName, string ruleName);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByName", ReplyAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByNameResponse")]
+        System.Threading.Tasks.Task<bool> DeactivateRuleForTamagotchiByNameAsync(string tamagotchiName, string ruleName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByIdResponse")]
-        bool DactivateRuleForTamagotchiById(int tamagotchiId, string ruleName);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByIdResponse")]
+        bool DeactivateRuleForTamagotchiById(int tamagotchiId, string ruleName);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/DactivateRuleForTamagotchiByIdResponse")]
-        System.Threading.Tasks.Task<bool> DactivateRuleForTamagotchiByIdAsync(int tamagotchiId, string ruleName);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiById", ReplyAction="http://tempuri.org/ITamagotchiService/DeactivateRuleForTamagotchiByIdResponse")]
+        System.Threading.Tasks.Task<bool> DeactivateRuleForTamagotchiByIdAsync(int tamagotchiId, string ruleName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsRunning", ReplyAction="http://tempuri.org/ITamagotchiService/IsRunningResponse")]
         bool IsRunning();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/IsRunning", ReplyAction="http://tempuri.org/ITamagotchiService/IsRunningResponse")]
         System.Threading.Tasks.Task<bool> IsRunningAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/TamagotchiCount", ReplyAction="http://tempuri.org/ITamagotchiService/TamagotchiCountResponse")]
+        int TamagotchiCount();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/TamagotchiCount", ReplyAction="http://tempuri.org/ITamagotchiService/TamagotchiCountResponse")]
+        System.Threading.Tasks.Task<int> TamagotchiCountAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/TamagotchiPerPage", ReplyAction="http://tempuri.org/ITamagotchiService/TamagotchiPerPageResponse")]
+        int TamagotchiPerPage();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITamagotchiService/TamagotchiPerPage", ReplyAction="http://tempuri.org/ITamagotchiService/TamagotchiPerPageResponse")]
+        System.Threading.Tasks.Task<int> TamagotchiPerPageAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -726,28 +738,28 @@ namespace Tamagotchi.Web.TamagotchiService {
             return base.Channel.RemoveTamagotchiByIdAsync(id);
         }
         
-        public bool ValidId(int id) {
-            return base.Channel.ValidId(id);
+        public bool IsKnownId(int id) {
+            return base.Channel.IsKnownId(id);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidIdAsync(int id) {
-            return base.Channel.ValidIdAsync(id);
+        public System.Threading.Tasks.Task<bool> IsKnownIdAsync(int id) {
+            return base.Channel.IsKnownIdAsync(id);
         }
         
-        public bool ValidName(string name) {
-            return base.Channel.ValidName(name);
+        public bool IsKnownName(string name) {
+            return base.Channel.IsKnownName(name);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidNameAsync(string name) {
-            return base.Channel.ValidNameAsync(name);
+        public System.Threading.Tasks.Task<bool> IsKnownNameAsync(string name) {
+            return base.Channel.IsKnownNameAsync(name);
         }
         
-        public Tamagotchi.Web.TamagotchiService.TamagotchiContract[] GetAllTamagotchi() {
-            return base.Channel.GetAllTamagotchi();
+        public Tamagotchi.Web.TamagotchiService.TamagotchiContract[] GetAllTamagotchi(int start) {
+            return base.Channel.GetAllTamagotchi(start);
         }
         
-        public System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.TamagotchiContract[]> GetAllTamagotchiAsync() {
-            return base.Channel.GetAllTamagotchiAsync();
+        public System.Threading.Tasks.Task<Tamagotchi.Web.TamagotchiService.TamagotchiContract[]> GetAllTamagotchiAsync(int start) {
+            return base.Channel.GetAllTamagotchiAsync(start);
         }
         
         public bool ActivateRuleForTamagotchiByName(string tamagotchiName, string ruleName) {
@@ -766,20 +778,20 @@ namespace Tamagotchi.Web.TamagotchiService {
             return base.Channel.ActivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
         }
         
-        public bool DactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName) {
-            return base.Channel.DactivateRuleForTamagotchiByName(tamagotchiName, ruleName);
+        public bool DeactivateRuleForTamagotchiByName(string tamagotchiName, string ruleName) {
+            return base.Channel.DeactivateRuleForTamagotchiByName(tamagotchiName, ruleName);
         }
         
-        public System.Threading.Tasks.Task<bool> DactivateRuleForTamagotchiByNameAsync(string tamagotchiName, string ruleName) {
-            return base.Channel.DactivateRuleForTamagotchiByNameAsync(tamagotchiName, ruleName);
+        public System.Threading.Tasks.Task<bool> DeactivateRuleForTamagotchiByNameAsync(string tamagotchiName, string ruleName) {
+            return base.Channel.DeactivateRuleForTamagotchiByNameAsync(tamagotchiName, ruleName);
         }
         
-        public bool DactivateRuleForTamagotchiById(int tamagotchiId, string ruleName) {
-            return base.Channel.DactivateRuleForTamagotchiById(tamagotchiId, ruleName);
+        public bool DeactivateRuleForTamagotchiById(int tamagotchiId, string ruleName) {
+            return base.Channel.DeactivateRuleForTamagotchiById(tamagotchiId, ruleName);
         }
         
-        public System.Threading.Tasks.Task<bool> DactivateRuleForTamagotchiByIdAsync(int tamagotchiId, string ruleName) {
-            return base.Channel.DactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
+        public System.Threading.Tasks.Task<bool> DeactivateRuleForTamagotchiByIdAsync(int tamagotchiId, string ruleName) {
+            return base.Channel.DeactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
         }
         
         public bool IsRunning() {
@@ -788,6 +800,22 @@ namespace Tamagotchi.Web.TamagotchiService {
         
         public System.Threading.Tasks.Task<bool> IsRunningAsync() {
             return base.Channel.IsRunningAsync();
+        }
+        
+        public int TamagotchiCount() {
+            return base.Channel.TamagotchiCount();
+        }
+        
+        public System.Threading.Tasks.Task<int> TamagotchiCountAsync() {
+            return base.Channel.TamagotchiCountAsync();
+        }
+        
+        public int TamagotchiPerPage() {
+            return base.Channel.TamagotchiPerPage();
+        }
+        
+        public System.Threading.Tasks.Task<int> TamagotchiPerPageAsync() {
+            return base.Channel.TamagotchiPerPageAsync();
         }
     }
 }

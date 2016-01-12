@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Tamagotchi.Service.Model
 {
     interface ITamagotchiRepository
     {
-        IEnumerable<Domain.Tamagotchi> GetAll();
+        IEnumerable<Domain.Tamagotchi> GetAll(int start, int amount);
         Domain.Tamagotchi Get(string name);
         Domain.Tamagotchi Get(int id);
 
@@ -15,7 +14,8 @@ namespace Tamagotchi.Service.Model
 
         bool SaveChanges();
 
-        bool ValidId(int id);
-        bool ValidName(string name);
+        bool IsKnownId(int id);
+        bool IsKnownName(string name);
+        int TamgotchiCount();
     }
 }

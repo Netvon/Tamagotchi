@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Tamagotchi.Web.TamagotchiService;
 
@@ -23,9 +24,9 @@ namespace Tamagotchi.Web.Models
             return service.GetTamagotchiByIdAsync(id);
         }
 
-        public Task<TamagotchiContract[]> GetAllAsync()
+        public Task<TamagotchiContract[]> GetAllAsync(int start)
         {
-            return service.GetAllTamagotchiAsync();
+            return service.GetAllTamagotchiAsync(start);
         }
 
         public Task<bool> SleepAsync(int id)
@@ -61,7 +62,7 @@ namespace Tamagotchi.Web.Models
         public Task<bool> HasDataAsync()
         {
             try
-            {                
+            {
                 return service.IsRunningAsync();
             }
             catch (Exception)
@@ -75,29 +76,39 @@ namespace Tamagotchi.Web.Models
             return service.Endpoint.Address.Uri.ToString();
         }
 
-        public Task<bool> IsValidIdAsync(int id)
+        public Task<bool> IsKnownIdAsync(int id)
         {
-            return service.ValidIdAsync(id);
+            return service.IsKnownIdAsync(id);
         }
 
-        public Task<bool> IsValidNameAsync(string name)
+        public Task<bool> IsKnownNameAsync(string name)
         {
-            return service.ValidNameAsync(name);
+            return service.IsKnownNameAsync(name);
         }
 
         public Task<bool> SetRuleForTamagotchiAsync(int tamagotchiId, string ruleName, bool setActive)
         {
-            if(setActive)
+            if (setActive)
             {
                 return service.ActivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
             }
 
-            return service.DactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
+            return service.DeactivateRuleForTamagotchiByIdAsync(tamagotchiId, ruleName);
         }
 
         public Task<bool> RemoveAsync(int id)
         {
             return service.RemoveTamagotchiByIdAsync(id);
+        }
+
+        public Task<int> TamagotchiPerPageAsync()
+        {
+            return service.TamagotchiPerPageAsync();
+        }
+
+        public Task<int> TamagotchiCountAsync()
+        {
+            return service.TamagotchiCountAsync();
         }
     }
 }
