@@ -109,3 +109,8 @@ textarea {
 .overview{
     margin-top: 20px;
 }
+
+.media,
+.page-header{
+    overflow-x: auto;
+}

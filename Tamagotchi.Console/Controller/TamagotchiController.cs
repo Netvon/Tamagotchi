@@ -76,11 +76,18 @@ namespace Tamagotchi.Console.Controller
                     case "c":
                         WriteLine("Removing all dead Tamagotchis, this might take some time.", ConsoleColor.Red);
                         WriteLine();
-                        for (int i = 0; i < _repo.TamagotchiCount(); i += _repo.TamagotchiPerPage())
+
+                        int pagecount = _repo.TamagotchiCount() / _repo.TamagotchiPerPage();
+
+                        for (int i = 0; i < int.MaxValue; i += _repo.TamagotchiPerPage())
                         {
                             var all = _repo.GetAll(i);
                             if (all.Count() <= 0)
                                 break;
+
+                            var currentPageCount = _repo.TamagotchiCount() / _repo.TamagotchiPerPage();
+                            if (pagecount != currentPageCount)
+                                i = 0;
 
                             foreach (var item in all.Where(t => t.HasDied))
                             {

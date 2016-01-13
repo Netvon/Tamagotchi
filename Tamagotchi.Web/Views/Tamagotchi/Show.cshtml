@@ -32,7 +32,21 @@
         <ol class="breadcrumb">
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
             <li>@Html.ActionLink("Overview", "Index", "Tamagotchi")</li>
-            <li class="active">@Model.Name</li>
+            @{
+                const int nameLimit = 15;
+
+                if (Model.Name.Count() > nameLimit)
+                {
+                    string tamaName = Model.Name;
+                    tamaName = new string(@Model.Name.Take(nameLimit).ToArray());
+                    <li class="active">@tamaName&#8230;</li>
+                }
+                else
+                {
+                    <li class="active">@Model.Name</li>
+                }
+            }
+
         </ol>
 
         <div class="page-header">

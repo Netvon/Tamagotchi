@@ -6,7 +6,18 @@
     <meta name="theme-color" content="#2C0073">
     @if (ViewBag.Title != null)
     {
-        <title>@ViewBag.Title - Tamagotchi</title>
+        var title = ViewBag.Title as string;
+
+        string elips = string.Empty;
+
+        if (title.Count() > 15)
+        {
+            elips = "…";
+        }
+
+        title = new string(title.Take(15).ToArray()) + elips;
+
+        <title>@title - Tamagotchi</title>
     }
     else
     {
