@@ -212,6 +212,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\cliendatetime.js" />
+    <None Include="Properties\PublishProfiles\TamagotchiNetvonEurope - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -235,13 +236,13 @@
     <Content Include="Service References\TamagotchiService\Tamagotchi.Web.TamagotchiService.CreateContract.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
-    <None Include="Service References\TamagotchiService\TamagotchiService.disco" />
     <None Include="Service References\TamagotchiService\configuration91.svcinfo" />
     <None Include="Service References\TamagotchiService\configuration.svcinfo" />
     <None Include="Service References\TamagotchiService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\TamagotchiService\TamagotchiService1.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -255,22 +256,22 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <None Include="Service References\TamagotchiService\TamagotchiService.wsdl" />
-    <None Include="Service References\TamagotchiService\TamagotchiService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\TamagotchiService\TamagotchiService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\TamagotchiService\TamagotchiService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Tamagotchi\Show.cshtml" />
     <Content Include="Views\Tamagotchi\Index.cshtml" />
     <Content Include="Views\Shared\_PageHeader.cshtml" />
     <Content Include="Views\Tamagotchi\Error.cshtml" />
     <Content Include="Views\Tamagotchi\CreateError.cshtml" />
     <Content Include="Views\Tamagotchi\DeleteError.cshtml" />
+    <None Include="Service References\TamagotchiService\TamagotchiService1.wsdl" />
+    <None Include="Service References\TamagotchiService\TamagotchiService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TamagotchiService\TamagotchiService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TamagotchiService\TamagotchiService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

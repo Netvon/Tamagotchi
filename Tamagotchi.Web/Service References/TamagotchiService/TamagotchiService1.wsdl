@@ -27,9 +27,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" />
+      <xsd:import schemaLocation="http://netvontamaserveuro.azurewebsites.net/TamagotchiService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://netvontamaserveuro.azurewebsites.net/TamagotchiService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://netvontamaserveuro.azurewebsites.net/TamagotchiService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Tamagotchi.Service" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ITamagotchiService_SleepByName_InputMessage">
@@ -743,10 +743,10 @@
   </wsdl:binding>
   <wsdl:service name="TamagotchiService">
     <wsdl:port name="BasicHttpBinding_ITamagotchiService" binding="tns:BasicHttpBinding_ITamagotchiService">
-      <soap:address location="http://netvontamaservice.azurewebsites.net/TamagotchiService.svc" />
+      <soap:address location="http://netvontamaserveuro.azurewebsites.net/TamagotchiService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ITamagotchiService" binding="tns:BasicHttpsBinding_ITamagotchiService">
-      <soap:address location="https://netvontamaservice.azurewebsites.net/TamagotchiService.svc" />
+      <soap:address location="https://netvontamaserveuro.azurewebsites.net/TamagotchiService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

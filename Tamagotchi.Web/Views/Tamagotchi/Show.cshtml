@@ -16,7 +16,8 @@
     if (timeOffSet != null)
     {
         offset = int.Parse(timeOffSet.ToString());
-        countDownUntil = countDownUntil.AddMinutes(-1 * offset);
+        countDownUntil = countDownUntil.AddMinutes(-1 * offset)//;
+                /* Disable on local */ .Subtract(TimeSpan.FromSeconds(10)); //fix for azure time
     }
 
     var countDownUntilText = countDownUntil.ToString("MM/dd/yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US"));
