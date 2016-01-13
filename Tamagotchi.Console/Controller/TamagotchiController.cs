@@ -77,34 +77,40 @@ namespace Tamagotchi.Console.Controller
                         WriteLine("Removing all dead Tamagotchis, this might take some time.", ConsoleColor.Red);
                         WriteLine();
 
-                        int pagecount = _repo.TamagotchiCount() / _repo.TamagotchiPerPage();
+                        var allCount = _repo.TamagotchiCount();
+                        var perPage = _repo.TamagotchiPerPage();
+                        int pagecount = allCount / perPage;
 
-                        for (int i = 0; i < int.MaxValue; i += _repo.TamagotchiPerPage())
+                        for (int i = 0; i < allCount; i += perPage)
                         {
                             var all = _repo.GetAll(i);
                             if (all.Count() <= 0)
                                 break;
 
-                            var currentPageCount = _repo.TamagotchiCount() / _repo.TamagotchiPerPage();
-                            if (pagecount != currentPageCount)
-                                i = 0;
-
-                            foreach (var item in all.Where(t => t.HasDied))
+                            if(all.Any(t => t.HasDied))
                             {
-                                Write(".", ConsoleColor.Red);
-                                _repo.Remove(item.Name);
-                            }
+                                foreach (var item in all.Where(t => t.HasDied))
+                                {
+                                    Write(".", ConsoleColor.Red);
+                                    _repo.Remove(item.Name);
+                                }
+
+                                allCount = _repo.TamagotchiCount();
+                                perPage = _repo.TamagotchiPerPage();
+                                pagecount = allCount / perPage;
+
+                                i = 0;
+                            }                            
                         }
                         break;
                     case "purge":
                     case "p":
                         WriteLine("Removing all Tamagotchis, this might take some time.", ConsoleColor.Red);
                         WriteLine();
-                        for (int i = 0; i < int.MaxValue; i += _repo.TamagotchiPerPage())
+
+                        while(_repo.TamagotchiCount() != 0)
                         {
-                            var all = _repo.GetAll(i);
-                            if (all.Count() <= 0)
-                                break;
+                            var all = _repo.GetAll(0);
 
                             foreach (var item in all)
                             {
